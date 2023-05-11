@@ -28,10 +28,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="botonIngresar1" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="botonGestionarCitas" min="-2" pref="128" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="290" max="-2" attributes="0"/>
-                  <Component id="botonIngresar" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="169" max="32767" attributes="0"/>
           </Group>
@@ -45,10 +44,8 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" pref="28" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="botonIngresar" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="botonIngresar1" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace pref="86" max="32767" attributes="0"/>
+              <Component id="botonGestionarCitas" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace pref="134" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,15 +67,13 @@
         <Property name="text" type="java.lang.String" value="Men&#xfa; Medico"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="botonIngresar">
+    <Component class="javax.swing.JButton" name="botonGestionarCitas">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Crear horario"/>
+        <Property name="text" type="java.lang.String" value="Gestionar citas"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="botonIngresar1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ver citas"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGestionarCitasActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
