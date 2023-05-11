@@ -31,16 +31,16 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="290" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="botonIngresar2" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="botonConsultarCitas" min="-2" pref="128" max="-2" attributes="0"/>
                       <EmptySpace pref="193" max="32767" attributes="0"/>
-                      <Component id="botonIngresar5" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="botonSalir" min="-2" pref="128" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="botonIngresar" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="botonAgendarCitas" min="-2" pref="128" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="botonIngresar3" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="botonCancelarCita" min="-2" pref="128" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="botonIngresar4" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="botonModificarCita" min="-2" pref="128" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -56,17 +56,17 @@
               <Component id="jLabel2" min="-2" pref="28" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botonIngresar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="botonIngresar3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="botonIngresar4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="botonAgendarCitas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="botonCancelarCita" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="botonModificarCita" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="botonIngresar2" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="botonConsultarCitas" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="botonIngresar5" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="botonSalir" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -89,35 +89,35 @@
         <Property name="text" type="java.lang.String" value="Men&#xfa; Paciente"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="botonIngresar">
+    <Component class="javax.swing.JButton" name="botonAgendarCitas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agendar cita"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonIngresarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAgendarCitasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botonIngresar2">
+    <Component class="javax.swing.JButton" name="botonConsultarCitas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Consultar citas"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="botonIngresar3">
+    <Component class="javax.swing.JButton" name="botonCancelarCita">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar cita"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="botonIngresar4">
+    <Component class="javax.swing.JButton" name="botonModificarCita">
       <Properties>
         <Property name="text" type="java.lang.String" value="Modificar cita"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="botonIngresar5">
+    <Component class="javax.swing.JButton" name="botonSalir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonIngresar5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonSalirActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

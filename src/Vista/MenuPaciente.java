@@ -29,11 +29,11 @@ public class MenuPaciente extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        botonIngresar = new javax.swing.JButton();
-        botonIngresar2 = new javax.swing.JButton();
-        botonIngresar3 = new javax.swing.JButton();
-        botonIngresar4 = new javax.swing.JButton();
-        botonIngresar5 = new javax.swing.JButton();
+        botonAgendarCitas = new javax.swing.JButton();
+        botonConsultarCitas = new javax.swing.JButton();
+        botonCancelarCita = new javax.swing.JButton();
+        botonModificarCita = new javax.swing.JButton();
+        botonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -45,23 +45,23 @@ public class MenuPaciente extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Menú Paciente");
 
-        botonIngresar.setText("Agendar cita");
-        botonIngresar.addActionListener(new java.awt.event.ActionListener() {
+        botonAgendarCitas.setText("Agendar cita");
+        botonAgendarCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonIngresarActionPerformed(evt);
+                botonAgendarCitasActionPerformed(evt);
             }
         });
 
-        botonIngresar2.setText("Consultar citas");
+        botonConsultarCitas.setText("Consultar citas");
 
-        botonIngresar3.setText("Cancelar cita");
+        botonCancelarCita.setText("Cancelar cita");
 
-        botonIngresar4.setText("Modificar cita");
+        botonModificarCita.setText("Modificar cita");
 
-        botonIngresar5.setText("Salir");
-        botonIngresar5.addActionListener(new java.awt.event.ActionListener() {
+        botonSalir.setText("Salir");
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonIngresar5ActionPerformed(evt);
+                botonSalirActionPerformed(evt);
             }
         });
 
@@ -75,15 +75,15 @@ public class MenuPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonIngresar2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonConsultarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
-                        .addComponent(botonIngresar5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonAgendarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(botonIngresar3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonCancelarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(botonIngresar4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonModificarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -95,15 +95,15 @@ public class MenuPaciente extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonIngresar3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonIngresar4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonAgendarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCancelarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonModificarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(botonIngresar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonConsultarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonIngresar5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -111,15 +111,16 @@ public class MenuPaciente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
+    private void botonAgendarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitasActionPerformed
         // TODO add your handling code here:
         AgendarCita ventanaCrearMedico = new AgendarCita();
         ventanaCrearMedico.setVisible(true);
-        this.setVisible(false);    }//GEN-LAST:event_botonIngresarActionPerformed
+        this.setVisible(false);    }//GEN-LAST:event_botonAgendarCitasActionPerformed
 
-    private void botonIngresar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresar5ActionPerformed
+    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonIngresar5ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_botonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,11 +165,11 @@ public class MenuPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonIngresar;
-    private javax.swing.JButton botonIngresar2;
-    private javax.swing.JButton botonIngresar3;
-    private javax.swing.JButton botonIngresar4;
-    private javax.swing.JButton botonIngresar5;
+    private javax.swing.JButton botonAgendarCitas;
+    private javax.swing.JButton botonCancelarCita;
+    private javax.swing.JButton botonConsultarCitas;
+    private javax.swing.JButton botonModificarCita;
+    private javax.swing.JButton botonSalir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
