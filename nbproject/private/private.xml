@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/LoginVista.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/ConsultarCitas.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/CrearMedicoVista.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/MenuPaciente.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/AgendarCita.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/CrearPacienteVista.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/MenuMedicos.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/CrearUsuarioVista.java</file>
-            <file>file:/C:/Users/edgue/Downloads/ProyectoFinalBD1/ProyectoFinalBD1/src/Vista/EliminarCita.java</file>
+            <file>file:/C:/Users/scorg/OneDrive/Documentos/GitHub/ProyectoBD1/src/Vista/ModificarCitaVista.java</file>
+            <file>file:/C:/Users/scorg/OneDrive/Documentos/GitHub/ProyectoBD1/src/Vista/CrearPacienteVista.java</file>
+            <file>file:/C:/Users/scorg/OneDrive/Documentos/GitHub/ProyectoBD1/src/Vista/ConsultarCitas.java</file>
+            <file>file:/C:/Users/scorg/OneDrive/Documentos/GitHub/ProyectoBD1/src/Vista/AgendarCita.java</file>
+            <file>file:/C:/Users/scorg/OneDrive/Documentos/GitHub/ProyectoBD1/src/Vista/CrearMedicoVista.java</file>
+            <file>file:/C:/Users/scorg/OneDrive/Documentos/GitHub/ProyectoBD1/src/Vista/CancelarCitaVista.java</file>
         </group>
     </open-files>
 </project-private>

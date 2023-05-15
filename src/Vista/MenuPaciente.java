@@ -27,84 +27,87 @@ public class MenuPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        botonAgendarCitas = new javax.swing.JButton();
-        botonConsultarCitas = new javax.swing.JButton();
-        botonCancelarCita = new javax.swing.JButton();
-        botonModificarCita = new javax.swing.JButton();
-        botonSalir = new javax.swing.JButton();
+        bg = new javax.swing.JPanel();
+        jLabeltitle = new javax.swing.JLabel();
+        jLabeltext = new javax.swing.JLabel();
+        botonAgendarCitas = new ComponentesUI.Button();
+        botonCancelarCita = new ComponentesUI.Button();
+        botonConsultarCitas = new ComponentesUI.Button();
+        botonSalir = new ComponentesUI.Button();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("Menú pacientes");
         setResizable(false);
 
-        jLabel2.setText("Seleccione una opción del menú.");
+        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Inter SemiBold", 1, 28)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Menú Paciente");
+        jLabeltitle.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        jLabeltitle.setText("¿Qué desea hacer?");
+        bg.add(jLabeltitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 349, -1));
 
+        jLabeltext.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabeltext.setText("Seleccione una opción del menú.");
+        jLabeltext.setName("jlabeltext");
+        bg.add(jLabeltext, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+
+        botonAgendarCitas.setBackground(new java.awt.Color(78, 158, 185));
+        botonAgendarCitas.setForeground(new java.awt.Color(244, 240, 238));
         botonAgendarCitas.setText("Agendar cita");
+        botonAgendarCitas.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         botonAgendarCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgendarCitasActionPerformed(evt);
             }
         });
+        bg.add(botonAgendarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 210, 48));
 
-        botonConsultarCitas.setText("Consultar citas");
-
+        botonCancelarCita.setBackground(new java.awt.Color(78, 158, 185));
+        botonCancelarCita.setForeground(new java.awt.Color(244, 240, 238));
         botonCancelarCita.setText("Cancelar cita");
+        botonCancelarCita.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonCancelarCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarCitaActionPerformed(evt);
+            }
+        });
+        bg.add(botonCancelarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 210, 48));
 
-        botonModificarCita.setText("Modificar cita");
+        botonConsultarCitas.setBackground(new java.awt.Color(78, 158, 185));
+        botonConsultarCitas.setForeground(new java.awt.Color(244, 240, 238));
+        botonConsultarCitas.setText("Consultar citas");
+        botonConsultarCitas.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonConsultarCitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarCitasActionPerformed(evt);
+            }
+        });
+        bg.add(botonConsultarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 210, 48));
 
+        botonSalir.setBackground(new java.awt.Color(78, 158, 185));
+        botonSalir.setForeground(new java.awt.Color(244, 240, 238));
         botonSalir.setText("Salir");
+        botonSalir.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonSalirActionPerformed(evt);
             }
         });
+        bg.add(botonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 210, 48));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonConsultarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
-                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonAgendarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonCancelarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonModificarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAgendarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonCancelarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonModificarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(botonConsultarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -113,9 +116,24 @@ public class MenuPaciente extends javax.swing.JFrame {
 
     private void botonAgendarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitasActionPerformed
         // TODO add your handling code here:
-        AgendarCita ventanaCrearMedico = new AgendarCita();
-        ventanaCrearMedico.setVisible(true);
-        this.setVisible(false);    }//GEN-LAST:event_botonAgendarCitasActionPerformed
+        AgendarCita ventanaAgendar = new AgendarCita();
+        ventanaAgendar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonAgendarCitasActionPerformed
+
+    private void botonCancelarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarCitaActionPerformed
+        // TODO add your handling code here:
+        CancelarCitaVista ventana = new CancelarCitaVista();
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonCancelarCitaActionPerformed
+
+    private void botonConsultarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarCitasActionPerformed
+        // TODO add your handling code here:
+        ConsultarCitas ventana = new ConsultarCitas();
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonConsultarCitasActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // TODO add your handling code here:
@@ -165,12 +183,13 @@ public class MenuPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAgendarCitas;
-    private javax.swing.JButton botonCancelarCita;
-    private javax.swing.JButton botonConsultarCitas;
-    private javax.swing.JButton botonModificarCita;
-    private javax.swing.JButton botonSalir;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel bg;
+    private ComponentesUI.Button botonAgendarCitas;
+    private ComponentesUI.Button botonCancelarCita;
+    private ComponentesUI.Button botonConsultarCitas;
+    private ComponentesUI.Button botonSalir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabeltext;
+    private javax.swing.JLabel jLabeltitle;
     // End of variables declaration//GEN-END:variables
 }

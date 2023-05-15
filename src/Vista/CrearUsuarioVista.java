@@ -5,6 +5,10 @@
  */
 package Vista;
 
+import Fuentes.Fuente;
+
+
+
 /**
  *
  * @author Santiago Cortés
@@ -16,6 +20,7 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
      */
     public CrearUsuarioVista() {
         initComponents();
+        Fuente.aplicarFuente(this);
     }
 
     /**
@@ -27,98 +32,100 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        botonCrearMedico = new javax.swing.JButton();
-        botonCrearPaciente = new javax.swing.JButton();
-        botonRegresar = new javax.swing.JButton();
+        bg = new javax.swing.JPanel();
+        botonRegresar = new ComponentesUI.Button();
+        botonCrearMedico = new ComponentesUI.Button();
+        botonCrearPaciente = new ComponentesUI.Button();
+        jLabeltitle = new javax.swing.JLabel();
+        jLabeltext = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Crear nuevo usuario");
 
-        jLabel3.setFont(new java.awt.Font("Inter SemiBold", 1, 28)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Crear nuevo usuario");
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Seleccione el tipo de usuario que va a crear.");
-
-        botonCrearMedico.setText("Médico");
-        botonCrearMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCrearMedicoActionPerformed(evt);
-            }
-        });
-
-        botonCrearPaciente.setText("Paciente");
-        botonCrearPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCrearPacienteActionPerformed(evt);
-            }
-        });
-
+        botonRegresar.setBackground(new java.awt.Color(78, 158, 185));
+        botonRegresar.setForeground(new java.awt.Color(244, 240, 238));
         botonRegresar.setText("Regresar");
+        botonRegresar.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresarActionPerformed(evt);
             }
         });
+        bg.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 112, 48));
+
+        botonCrearMedico.setBackground(new java.awt.Color(78, 158, 185));
+        botonCrearMedico.setForeground(new java.awt.Color(244, 240, 238));
+        botonCrearMedico.setText("Médico");
+        botonCrearMedico.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonCrearMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCrearMedicoActionPerformed(evt);
+            }
+        });
+        bg.add(botonCrearMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 200, 48));
+
+        botonCrearPaciente.setBackground(new java.awt.Color(78, 158, 185));
+        botonCrearPaciente.setForeground(new java.awt.Color(244, 240, 238));
+        botonCrearPaciente.setText("Paciente");
+        botonCrearPaciente.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonCrearPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCrearPacienteActionPerformed(evt);
+            }
+        });
+        bg.add(botonCrearPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 200, 48));
+
+        jLabeltitle.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        jLabeltitle.setText("Crear nuevo usuario");
+        jLabeltext.setName("jlabeltitle");
+        bg.add(jLabeltitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 349, -1));
+
+        jLabeltext.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabeltext.setText("Elija el tipo de usuario que creará.");
+        jLabeltext.setName("jlabeltext");
+        bg.add(jLabeltext, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crearUsuario.png"))); // NOI18N
+        jLabel1.setOpaque(true);
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 330));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(botonCrearPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(botonRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonCrearPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(706, 369));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+        // TODO add your handling code here:
+        LoginVista ventana = new LoginVista();
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonCrearMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearMedicoActionPerformed
         // TODO add your handling code here:
         CrearMedicoVista ventanaCrearMedico = new CrearMedicoVista();
         ventanaCrearMedico.setVisible(true);
-        this.setVisible(false);
-
+        this.dispose();
     }//GEN-LAST:event_botonCrearMedicoActionPerformed
-
-    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        // TODO add your handling code here:
-        LoginVista ventana = new LoginVista();
-        this.setVisible(false);
-        ventana.setVisible(true);
-    }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonCrearPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearPacienteActionPerformed
         // TODO add your handling code here:
         CrearPacienteVista ventana = new CrearPacienteVista();
         ventana.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_botonCrearPacienteActionPerformed
 
     /**
@@ -148,19 +155,24 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CrearUsuarioVista().setVisible(true);
+                        
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonCrearMedico;
-    private javax.swing.JButton botonCrearPaciente;
-    private javax.swing.JButton botonRegresar;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel bg;
+    private ComponentesUI.Button botonCrearMedico;
+    private ComponentesUI.Button botonCrearPaciente;
+    private ComponentesUI.Button botonRegresar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabeltext;
+    private javax.swing.JLabel jLabeltitle;
     // End of variables declaration//GEN-END:variables
 }

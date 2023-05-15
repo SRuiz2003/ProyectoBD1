@@ -8,7 +8,8 @@ package Vista;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import java.io.File;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -32,356 +33,319 @@ public class CrearPacienteVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jLabel1 = new javax.swing.JLabel();
+        bg = new javax.swing.JPanel();
+        jLabeltitle = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        campoNombrePaciente = new ComponentesUI.TextField();
+        campoApellidosPaciente = new ComponentesUI.TextField();
+        campoCedulaPaciente = new ComponentesUI.TextField();
+        campoTelefonoPaciente = new ComponentesUI.TextField();
+        campoCorreoPaciente = new ComponentesUI.TextField();
+        campoContraseñaPaciente = new CampoContraseña.PasswordField();
+        jchooser = new com.toedter.calendar.JDateChooser();
+        grupoSanguineo = new ComponentesUI.Combobox();
+        factorRH = new ComponentesUI.Combobox();
+        campoDireccionPaciente = new ComponentesUI.TextField();
+        campoFechaNacimiento = new ComponentesUI.TextField();
+        alergias = new ComponentesUI.RadioButtonCustom();
+        enfermedades = new ComponentesUI.RadioButtonCustom();
         jLabel3 = new javax.swing.JLabel();
-        campoCedulaMedico = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        campoContraseñaMedico = new javax.swing.JPasswordField();
-        botonCrearUsuario = new javax.swing.JButton();
-        botonRegresarLogin = new javax.swing.JButton();
-        campoNombreMedico = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        campoApellidosMedico = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        campoTelefonoMedico = new javax.swing.JTextField();
+        campoContraseñaPaciente2 = new CampoContraseña.PasswordField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        campoCorreoMedico = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        campoDireccionPaciente = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        campoGrupoSanguineo = new javax.swing.JComboBox<>();
-        campoRH = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jLabel15 = new javax.swing.JLabel();
-        botonSubirHistoriaClinica = new javax.swing.JButton();
-        campoFechaNacimiento = new com.toedter.calendar.JDateChooser();
+        botonRegresar = new ComponentesUI.Button();
+        botonSubirHistoria = new ComponentesUI.Button();
+        botonCrearPaciente = new ComponentesUI.Button();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Crear nuevo usuario");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Crear nuevo paciente");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Cédula:");
+        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Cree un nuevo usuariode tipo paciente ingresando los siguientes datos.");
+        jLabeltitle.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        jLabeltitle.setText("Crear nuevo paciente");
+        bg.add(jLabeltitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 400, -1));
 
-        jLabel3.setFont(new java.awt.Font("Inter SemiBold", 1, 28)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Crear nuevo Paciente");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel2.setText("¿Alergias?");
+        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
 
-        campoCedulaMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCedulaMedicoActionPerformed(evt);
+        campoNombrePaciente.setBackground(new java.awt.Color(252, 252, 252));
+        campoNombrePaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoNombrePaciente.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoNombrePaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoNombrePacienteMouseClicked(evt);
             }
         });
+        campoNombrePaciente.setPlaceholder("Nombres...");
+        bg.add(campoNombrePaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 256, 47));
 
-        jLabel4.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        campoApellidosPaciente.setBackground(new java.awt.Color(252, 252, 252));
+        campoApellidosPaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoApellidosPaciente.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoApellidosPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoApellidosPacienteMouseClicked(evt);
+            }
+        });
+        campoApellidosPaciente.setPlaceholder("Apellidos...");
+        bg.add(campoApellidosPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 256, 47));
+
+        campoCedulaPaciente.setBackground(new java.awt.Color(252, 252, 252));
+        campoCedulaPaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoCedulaPaciente.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoCedulaPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoCedulaPacienteMouseClicked(evt);
+            }
+        });
+        campoCedulaPaciente.setPlaceholder("Cédula...");
+        bg.add(campoCedulaPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, 256, 47));
+
+        campoTelefonoPaciente.setBackground(new java.awt.Color(252, 252, 252));
+        campoTelefonoPaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoTelefonoPaciente.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoTelefonoPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoTelefonoPacienteMouseClicked(evt);
+            }
+        });
+        campoTelefonoPaciente.setPlaceholder("Teléfono...");
+        bg.add(campoTelefonoPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 256, 47));
+
+        campoCorreoPaciente.setBackground(new java.awt.Color(252, 252, 252));
+        campoCorreoPaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoCorreoPaciente.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoCorreoPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoCorreoPacienteMouseClicked(evt);
+            }
+        });
+        campoCorreoPaciente.setPlaceholder("Correo...");
+        bg.add(campoCorreoPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 256, 47));
+
+        campoContraseñaPaciente.setBackground(new java.awt.Color(252, 252, 252));
+        campoContraseñaPaciente.setText("passwordField1");
+        campoContraseñaPaciente.setShadowColor(new java.awt.Color(0, 153, 153));
+        bg.add(campoContraseñaPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 260, 50));
+
+        jchooser.setBackground(new java.awt.Color(255, 255, 255));
+        jchooser.setToolTipText("");
+        jchooser.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jchooserInputMethodTextChanged(evt);
+            }
+        });
+        jchooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jchooserPropertyChange(evt);
+            }
+        });
+        bg.add(jchooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 200, 44, 39));
+
+        grupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "AB", "B", "O", " " }));
+        grupoSanguineo.setSelectedIndex(4);
+        grupoSanguineo.setToolTipText("");
+        grupoSanguineo.setLabeText("Grupo sanguíneo");
+        grupoSanguineo.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(grupoSanguineo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 129, 50));
+
+        factorRH.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "" }));
+        factorRH.setSelectedIndex(2);
+        factorRH.setLabeText("RH");
+        factorRH.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(factorRH, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 52, 50));
+
+        campoDireccionPaciente.setBackground(new java.awt.Color(252, 252, 252));
+        campoDireccionPaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoDireccionPaciente.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoDireccionPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoDireccionPacienteMouseClicked(evt);
+            }
+        });
+        campoDireccionPaciente.setPlaceholder("Dirección...");
+        bg.add(campoDireccionPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 256, 47));
+
+        campoFechaNacimiento.setBackground(new java.awt.Color(252, 252, 252));
+        campoFechaNacimiento.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoFechaNacimiento.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoFechaNacimiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoFechaNacimientoMouseClicked(evt);
+            }
+        });
+        campoFechaNacimiento.setPlaceholder("Fecha de nacimiento...");
+        bg.add(campoFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 190, 47));
+
+        alergias.setText("Si");
+        alergias.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        alergias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alergiasActionPerformed(evt);
+            }
+        });
+        bg.add(alergias, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
+
+        enfermedades.setText("Si");
+        enfermedades.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        enfermedades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enfermedadesActionPerformed(evt);
+            }
+        });
+        bg.add(enfermedades, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel3.setText("¿Enfermedades preexistentes?");
+        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 240, -1));
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel4.setText("Contraseña:");
+        bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, -1, -1));
 
-        botonCrearUsuario.setText("Crear usuario");
-        botonCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+        campoContraseñaPaciente2.setBackground(new java.awt.Color(252, 252, 252));
+        campoContraseñaPaciente2.setText("passwordField1");
+        campoContraseñaPaciente2.setShadowColor(new java.awt.Color(0, 153, 153));
+        bg.add(campoContraseñaPaciente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 260, 50));
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel5.setText("Repita su contraseña");
+        bg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 360, -1, -1));
+
+        botonRegresar.setBackground(new java.awt.Color(78, 158, 185));
+        botonRegresar.setForeground(new java.awt.Color(244, 240, 238));
+        botonRegresar.setText("Regresar");
+        botonRegresar.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCrearUsuarioActionPerformed(evt);
+                botonRegresarActionPerformed(evt);
             }
         });
+        bg.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 540, 153, 48));
 
-        botonRegresarLogin.setText("Regresar");
-        botonRegresarLogin.addActionListener(new java.awt.event.ActionListener() {
+        botonSubirHistoria.setBackground(new java.awt.Color(78, 158, 185));
+        botonSubirHistoria.setForeground(new java.awt.Color(244, 240, 238));
+        botonSubirHistoria.setText("Subir historia clinica(opcional)");
+        botonSubirHistoria.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonSubirHistoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegresarLoginActionPerformed(evt);
+                botonSubirHistoriaActionPerformed(evt);
             }
         });
+        bg.add(botonSubirHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, 250, 48));
 
-        campoNombreMedico.addActionListener(new java.awt.event.ActionListener() {
+        botonCrearPaciente.setBackground(new java.awt.Color(78, 158, 185));
+        botonCrearPaciente.setForeground(new java.awt.Color(244, 240, 238));
+        botonCrearPaciente.setText("Crear paciente");
+        botonCrearPaciente.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonCrearPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoNombreMedicoActionPerformed(evt);
+                botonCrearPacienteActionPerformed(evt);
             }
         });
+        bg.add(botonCrearPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 540, 220, 48));
 
-        jLabel6.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Nombre:");
-
-        campoApellidosMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoApellidosMedicoActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel7.setText("Apellidos:");
-
-        campoTelefonoMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTelefonoMedicoActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Teléfono:");
-
-        jLabel8.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Fecha nacimiento:");
-
-        campoCorreoMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCorreoMedicoActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel10.setText("Correo eléctronico:");
-
-        campoDireccionPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDireccionPacienteActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel12.setText("Dirección:");
-
-        jLabel13.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel13.setText("Grupo sanguíneo:");
-
-        campoGrupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "AB", "B", "O" }));
-
-        campoRH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "+", "-" }));
-
-        jLabel14.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel14.setText("¿Tiene alergias?");
-
-        jCheckBox1.setText("SI");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox2.setText("SI");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-
-        jLabel15.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel15.setText("¿Tiene enfermedades preexistentes?");
-
-        botonSubirHistoriaClinica.setText("Subir historia clinica");
-        botonSubirHistoriaClinica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSubirHistoriaClinicaActionPerformed(evt);
-            }
-        });
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/paciente.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 310, 590));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(177, 177, 177))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonSubirHistoriaClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel10))
-                            .addComponent(jLabel12)
-                            .addComponent(campoNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoCedulaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(campoContraseñaMedico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                                .addComponent(campoCorreoMedico, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoDireccionPaciente, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(botonCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addComponent(botonRegresarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 166, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addGap(2, 2, 2)
-                                            .addComponent(jLabel7))
-                                        .addComponent(campoApellidosMedico, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(campoTelefonoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel13)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(campoGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(campoRH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                    .addGap(52, 52, 52)
-                                                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addComponent(jLabel15)))
-                                .addGap(40, 40, 40))))))
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 948, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoApellidosMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(campoCedulaMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel5))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoCorreoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoTelefonoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoDireccionPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoGrupoSanguineo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoRH, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(14, 14, 14)
-                        .addComponent(campoContraseñaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1)))
-                .addGap(18, 18, 18)
-                .addComponent(botonSubirHistoriaClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonRegresarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoCedulaMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCedulaMedicoActionPerformed
+    private void campoNombrePacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoNombrePacienteMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoCedulaMedicoActionPerformed
+    }//GEN-LAST:event_campoNombrePacienteMouseClicked
 
-    private void botonCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearUsuarioActionPerformed
+    private void campoApellidosPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoApellidosPacienteMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonCrearUsuarioActionPerformed
 
-    private void botonRegresarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarLoginActionPerformed
+    }//GEN-LAST:event_campoApellidosPacienteMouseClicked
+
+    private void campoCedulaPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoCedulaPacienteMouseClicked
         // TODO add your handling code here:
-        LoginVista ventana = new LoginVista();
-        this.setVisible(false);
+    }//GEN-LAST:event_campoCedulaPacienteMouseClicked
+
+    private void campoTelefonoPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTelefonoPacienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoTelefonoPacienteMouseClicked
+
+    private void campoCorreoPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoCorreoPacienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCorreoPacienteMouseClicked
+
+    private void campoDireccionPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoDireccionPacienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoDireccionPacienteMouseClicked
+
+    private void campoFechaNacimientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoFechaNacimientoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoFechaNacimientoMouseClicked
+
+    private void jchooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jchooserPropertyChange
+        // TODO add your handling code here:
+        Date selectedDate = jchooser.getDate();
+
+        if (selectedDate != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = dateFormat.format(selectedDate);
+            campoFechaNacimiento.setText(formattedDate);
+        }
+
+    }//GEN-LAST:event_jchooserPropertyChange
+
+    private void jchooserInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jchooserInputMethodTextChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jchooserInputMethodTextChanged
+
+    private void alergiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alergiasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alergiasActionPerformed
+
+    private void enfermedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enfermedadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enfermedadesActionPerformed
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+        // TODO add your handling code here:
+        CrearUsuarioVista ventana = new CrearUsuarioVista();
         ventana.setVisible(true);
-    }//GEN-LAST:event_botonRegresarLoginActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botonRegresarActionPerformed
 
-    private void campoNombreMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreMedicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoNombreMedicoActionPerformed
-
-    private void campoApellidosMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoApellidosMedicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoApellidosMedicoActionPerformed
-
-    private void campoTelefonoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTelefonoMedicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTelefonoMedicoActionPerformed
-
-    private void campoCorreoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCorreoMedicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoCorreoMedicoActionPerformed
-
-    private void campoDireccionPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDireccionPacienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoDireccionPacienteActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
-    private void botonSubirHistoriaClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSubirHistoriaClinicaActionPerformed
+    private void botonSubirHistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSubirHistoriaActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(this); // Muestra el diálogo de selección de archivos
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-        // Aquí puedes hacer algo con el archivo seleccionado, como mostrar su nombre en un JLabel o realizar alguna operación con él.
+            // Aquí puedes hacer algo con el archivo seleccionado, como mostrar su nombre en un JLabel o realizar alguna operación con él.
         }
-        
-    }//GEN-LAST:event_botonSubirHistoriaClinicaActionPerformed
+    }//GEN-LAST:event_botonSubirHistoriaActionPerformed
+
+    private void botonCrearPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearPacienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonCrearPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,34 +390,29 @@ public class CrearPacienteVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonCrearUsuario;
-    private javax.swing.JButton botonRegresarLogin;
-    private javax.swing.JButton botonSubirHistoriaClinica;
-    private javax.swing.JTextField campoApellidosMedico;
-    private javax.swing.JTextField campoCedulaMedico;
-    private javax.swing.JPasswordField campoContraseñaMedico;
-    private javax.swing.JTextField campoCorreoMedico;
-    private javax.swing.JTextField campoDireccionPaciente;
-    private com.toedter.calendar.JDateChooser campoFechaNacimiento;
-    private javax.swing.JComboBox<String> campoGrupoSanguineo;
-    private javax.swing.JTextField campoNombreMedico;
-    private javax.swing.JComboBox<String> campoRH;
-    private javax.swing.JTextField campoTelefonoMedico;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
+    private ComponentesUI.RadioButtonCustom alergias;
+    private javax.swing.JPanel bg;
+    private ComponentesUI.Button botonCrearPaciente;
+    private ComponentesUI.Button botonRegresar;
+    private ComponentesUI.Button botonSubirHistoria;
+    private ComponentesUI.TextField campoApellidosPaciente;
+    private ComponentesUI.TextField campoCedulaPaciente;
+    private CampoContraseña.PasswordField campoContraseñaPaciente;
+    private CampoContraseña.PasswordField campoContraseñaPaciente2;
+    private ComponentesUI.TextField campoCorreoPaciente;
+    private ComponentesUI.TextField campoDireccionPaciente;
+    private ComponentesUI.TextField campoFechaNacimiento;
+    private ComponentesUI.TextField campoNombrePaciente;
+    private ComponentesUI.TextField campoTelefonoPaciente;
+    private ComponentesUI.RadioButtonCustom enfermedades;
+    private ComponentesUI.Combobox factorRH;
+    private ComponentesUI.Combobox grupoSanguineo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel jLabeltitle;
+    private com.toedter.calendar.JDateChooser jchooser;
     // End of variables declaration//GEN-END:variables
 }

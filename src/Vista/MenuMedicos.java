@@ -27,61 +27,80 @@ public class MenuMedicos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        botonGestionarCitas = new javax.swing.JButton();
+        bg = new javax.swing.JPanel();
+        jLabeltitle = new javax.swing.JLabel();
+        jLabeltext = new javax.swing.JLabel();
+        botonAgendarCitas = new ComponentesUI.Button();
+        botonSalir = new ComponentesUI.Button();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("Menú médicos");
         setResizable(false);
 
-        jLabel2.setText("Seleccione una opción del menú.");
+        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Inter SemiBold", 1, 28)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Menú Medico");
+        jLabeltitle.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        jLabeltitle.setText("¿Qué desea hacer?");
+        bg.add(jLabeltitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 349, -1));
 
-        botonGestionarCitas.setText("Gestionar citas");
-        botonGestionarCitas.addActionListener(new java.awt.event.ActionListener() {
+        jLabeltext.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabeltext.setText("Seleccione una opción del menú.");
+        jLabeltext.setName("jlabeltext");
+        bg.add(jLabeltext, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+
+        botonAgendarCitas.setBackground(new java.awt.Color(78, 158, 185));
+        botonAgendarCitas.setForeground(new java.awt.Color(244, 240, 238));
+        botonAgendarCitas.setText("Gestionar citas");
+        botonAgendarCitas.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonAgendarCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGestionarCitasActionPerformed(evt);
+                botonAgendarCitasActionPerformed(evt);
             }
         });
+        bg.add(botonAgendarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 153, 48));
+
+        botonSalir.setBackground(new java.awt.Color(78, 158, 185));
+        botonSalir.setForeground(new java.awt.Color(244, 240, 238));
+        botonSalir.setText("Salir");
+        botonSalir.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirActionPerformed(evt);
+            }
+        });
+        bg.add(botonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 220, 48));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonGestionarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(169, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonGestionarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonGestionarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarCitasActionPerformed
+    private void botonAgendarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitasActionPerformed
         // TODO add your handling code here:
         GestionarCitasVista ventana = new GestionarCitasVista();
         ventana.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_botonGestionarCitasActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botonAgendarCitasActionPerformed
+
+    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_botonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,6 +131,18 @@ public class MenuMedicos extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -122,8 +153,11 @@ public class MenuMedicos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonGestionarCitas;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel bg;
+    private ComponentesUI.Button botonAgendarCitas;
+    private ComponentesUI.Button botonSalir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabeltext;
+    private javax.swing.JLabel jLabeltitle;
     // End of variables declaration//GEN-END:variables
 }

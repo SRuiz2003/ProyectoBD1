@@ -5,14 +5,17 @@
  */
 package Vista;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
- * @author Santiago Cortés
+ * @author scorg
  */
 public class ModificarCitaVista extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Creates new form ModificarCitasVista
      */
     public ModificarCitaVista() {
         initComponents();
@@ -27,226 +30,233 @@ public class ModificarCitaVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        botonRegresar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        bg = new javax.swing.JPanel();
+        jLabeltitle = new javax.swing.JLabel();
+        jLabeltitle1 = new javax.swing.JLabel();
+        jLabeltitle2 = new javax.swing.JLabel();
         nombrePaciente = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        campoFechaModificada = new com.toedter.calendar.JDateChooser();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel7 = new javax.swing.JLabel();
-        campoEstadoCita = new javax.swing.JComboBox<>();
-        campoTipoCita = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jLabel11 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        campoCodigoEnfermedad = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        estadoCita = new ComponentesUI.Combobox();
+        jLabeltitle4 = new javax.swing.JLabel();
+        tipoCita = new ComponentesUI.Combobox();
+        jLabeltitle5 = new javax.swing.JLabel();
+        textAreaScroll2 = new ComponentesUI.TextAreaScroll();
+        recomendaciones = new ComponentesUI.TextArea();
+        textAreaScroll1 = new ComponentesUI.TextAreaScroll();
+        descripcionCita = new ComponentesUI.TextArea();
+        textAreaScroll3 = new ComponentesUI.TextAreaScroll();
+        tratamiento = new ComponentesUI.TextArea();
+        jLabeltitle3 = new javax.swing.JLabel();
+        jLabeltitle6 = new javax.swing.JLabel();
+        botonGuardar = new ComponentesUI.Button();
+        botonRegresar = new ComponentesUI.Button();
+        jLabel2 = new javax.swing.JLabel();
+        codigoEnfermedad = new ComponentesUI.TextField();
+        jchooser = new com.toedter.calendar.JDateChooser();
+        campoFechaCita = new ComponentesUI.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Modificar citas");
-        setResizable(false);
+        setTitle("Modificar cita");
 
-        jLabel3.setFont(new java.awt.Font("Inter SemiBold", 1, 28)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Modificar cita");
+        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabeltitle.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabeltitle.setText("Reporte");
+        bg.add(jLabeltitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 349, -1));
+
+        jLabeltitle1.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        jLabeltitle1.setText("Modificar cita");
+        bg.add(jLabeltitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 349, -1));
+
+        jLabeltitle2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabeltitle2.setText("Paciente:");
+        bg.add(jLabeltitle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 80, -1));
+
+        nombrePaciente.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        nombrePaciente.setText("(Nombre paciente)");
+        bg.add(nombrePaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 349, -1));
+
+        estadoCita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendiente", "Completada", "Incumplida", "Cancelada" }));
+        estadoCita.setToolTipText("");
+        estadoCita.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        estadoCita.setLabeText("");
+        estadoCita.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(estadoCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 160, 40));
+
+        jLabeltitle4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabeltitle4.setText("Tipo de cita");
+        bg.add(jLabeltitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 100, -1));
+
+        tipoCita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consulta", "Exámen", "Cirugía" }));
+        tipoCita.setToolTipText("");
+        tipoCita.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        tipoCita.setLabeText("");
+        tipoCita.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(tipoCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 160, 40));
+
+        jLabeltitle5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabeltitle5.setText("Estado");
+        bg.add(jLabeltitle5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 100, -1));
+
+        textAreaScroll2.setBackground(new java.awt.Color(255, 255, 255));
+        textAreaScroll2.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        textAreaScroll2.setLabelText("Recomendaciones");
+
+        recomendaciones.setColumns(20);
+        recomendaciones.setRows(5);
+        recomendaciones.setDisabledTextColor(new java.awt.Color(102, 0, 204));
+        recomendaciones.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        recomendaciones.setSelectionColor(new java.awt.Color(0, 153, 153));
+        textAreaScroll2.setViewportView(recomendaciones);
+
+        bg.add(textAreaScroll2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 260, 150));
+
+        textAreaScroll1.setBackground(new java.awt.Color(255, 255, 255));
+        textAreaScroll1.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        textAreaScroll1.setLabelText("Descripción de la cita");
+
+        descripcionCita.setColumns(20);
+        descripcionCita.setRows(5);
+        descripcionCita.setDisabledTextColor(new java.awt.Color(102, 0, 204));
+        descripcionCita.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        descripcionCita.setSelectionColor(new java.awt.Color(0, 153, 153));
+        textAreaScroll1.setViewportView(descripcionCita);
+
+        bg.add(textAreaScroll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 520, 150));
+
+        textAreaScroll3.setBackground(new java.awt.Color(255, 255, 255));
+        textAreaScroll3.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        textAreaScroll3.setLabelText("Tratamiento");
+
+        tratamiento.setColumns(20);
+        tratamiento.setRows(5);
+        tratamiento.setDisabledTextColor(new java.awt.Color(102, 0, 204));
+        tratamiento.setFont(new java.awt.Font("Yu Gothic UI", 0, 16)); // NOI18N
+        tratamiento.setSelectionColor(new java.awt.Color(0, 153, 153));
+        textAreaScroll3.setViewportView(tratamiento);
+
+        bg.add(textAreaScroll3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, 260, 150));
+
+        jLabeltitle3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabeltitle3.setText("Datos cita");
+        bg.add(jLabeltitle3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 349, -1));
+
+        jLabeltitle6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabeltitle6.setText("Diágnostico");
+        bg.add(jLabeltitle6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 280, -1));
+
+        botonGuardar.setBackground(new java.awt.Color(78, 158, 185));
+        botonGuardar.setForeground(new java.awt.Color(244, 240, 238));
+        botonGuardar.setText("Guardar");
+        botonGuardar.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
+        bg.add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, 270, 48));
+
+        botonRegresar.setBackground(new java.awt.Color(78, 158, 185));
+        botonRegresar.setForeground(new java.awt.Color(244, 240, 238));
         botonRegresar.setText("Regresar");
+        botonRegresar.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRegresarActionPerformed(evt);
             }
         });
+        bg.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 550, 153, 48));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel4.setText("Paciente: ");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
+        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 240, -1, -1));
 
-        nombrePaciente.setText("(nombre paciente)");
+        codigoEnfermedad.setBackground(new java.awt.Color(252, 252, 252));
+        codigoEnfermedad.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        codigoEnfermedad.setShadowColor(new java.awt.Color(0, 153, 153));
+        codigoEnfermedad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                codigoEnfermedadMouseClicked(evt);
+            }
+        });
+        codigoEnfermedad.setPlaceholder("Código de la enfermedad...");
+        bg.add(codigoEnfermedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 270, 47));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel5.setText("Fecha:");
+        jchooser.setBackground(new java.awt.Color(255, 255, 255));
+        jchooser.setToolTipText("");
+        jchooser.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jchooserInputMethodTextChanged(evt);
+            }
+        });
+        jchooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jchooserPropertyChange(evt);
+            }
+        });
+        bg.add(jchooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 44, 39));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel6.setText("Descripción:");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel7.setText("Estado:");
-
-        campoEstadoCita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDIENTE", "CANCELADA", "COMPLETADA", "INCUMPLIDA" }));
-
-        campoTipoCita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consulta", "Exámen", "Procedimiento", " " }));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel8.setText("Tipo de cita: ");
-
-        jLabel9.setFont(new java.awt.Font("Inter SemiBold", 1, 20)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Reporte");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel10.setText("Tratamiento:");
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
-
-        jLabel11.setFont(new java.awt.Font("Inter SemiBold", 1, 20)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel11.setText("Datos cita");
-
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel12.setText("Recomendaciones:");
-
-        jLabel13.setFont(new java.awt.Font("Inter SemiBold", 1, 20)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel13.setText("Diágnostico");
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel14.setText("Código enfermedad:");
-
-        jButton1.setText("Guardar y salir");
+        campoFechaCita.setBackground(new java.awt.Color(252, 252, 252));
+        campoFechaCita.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        campoFechaCita.setShadowColor(new java.awt.Color(0, 153, 153));
+        campoFechaCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoFechaCitaMouseClicked(evt);
+            }
+        });
+        campoFechaCita.setPlaceholder("Fecha de la cita...");
+        bg.add(campoFechaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 190, 47));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoCodigoEnfermedad, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(nombrePaciente)
-                                    .addComponent(jLabel4)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(campoFechaModificada, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(campoEstadoCita, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(campoTipoCita, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(192, 192, 192)
-                                .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel11))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nombrePaciente)
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoFechaModificada, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoEstadoCita, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(campoTipoCita, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoCodigoEnfermedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
         GestionarCitasVista ventana = new GestionarCitasVista();
         ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private void codigoEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_codigoEnfermedadMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoEnfermedadMouseClicked
+
+    private void jchooserInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jchooserInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jchooserInputMethodTextChanged
+
+    private void jchooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jchooserPropertyChange
+        // TODO add your handling code here:
+        Date selectedDate = jchooser.getDate();
+
+        if (selectedDate != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = dateFormat.format(selectedDate);
+            campoFechaCita.setText(formattedDate);
+        }
+    }//GEN-LAST:event_jchooserPropertyChange
+
+    private void campoFechaCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoFechaCitaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoFechaCitaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -275,20 +285,6 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -299,30 +295,28 @@ public class ModificarCitaVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonRegresar;
-    private javax.swing.JTextField campoCodigoEnfermedad;
-    private javax.swing.JComboBox<String> campoEstadoCita;
-    private com.toedter.calendar.JDateChooser campoFechaModificada;
-    private javax.swing.JComboBox<String> campoTipoCita;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JPanel bg;
+    private ComponentesUI.Button botonGuardar;
+    private ComponentesUI.Button botonRegresar;
+    private ComponentesUI.TextField campoFechaCita;
+    private ComponentesUI.TextField codigoEnfermedad;
+    private ComponentesUI.TextArea descripcionCita;
+    private ComponentesUI.Combobox estadoCita;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabeltitle;
+    private javax.swing.JLabel jLabeltitle1;
+    private javax.swing.JLabel jLabeltitle2;
+    private javax.swing.JLabel jLabeltitle3;
+    private javax.swing.JLabel jLabeltitle4;
+    private javax.swing.JLabel jLabeltitle5;
+    private javax.swing.JLabel jLabeltitle6;
+    private com.toedter.calendar.JDateChooser jchooser;
     private javax.swing.JLabel nombrePaciente;
+    private ComponentesUI.TextArea recomendaciones;
+    private ComponentesUI.TextAreaScroll textAreaScroll1;
+    private ComponentesUI.TextAreaScroll textAreaScroll2;
+    private ComponentesUI.TextAreaScroll textAreaScroll3;
+    private ComponentesUI.Combobox tipoCita;
+    private ComponentesUI.TextArea tratamiento;
     // End of variables declaration//GEN-END:variables
 }
