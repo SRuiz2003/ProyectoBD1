@@ -36,6 +36,7 @@ public class CancelarCitaVista extends javax.swing.JFrame {
         botonAgendarCita = new ComponentesUI.Button();
         citasPaciente = new ComponentesUI.Combobox();
         jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Horario");
@@ -80,6 +81,14 @@ public class CancelarCitaVista extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
         bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, -10, -1, 390));
 
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        bg.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +114,14 @@ public class CancelarCitaVista extends javax.swing.JFrame {
 
     private void botonAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitaActionPerformed
         // TODO add your handling code here:
+        long elCodigo = Long.parseLong(jTextField1.getText());
+        int log = ConexionBD.ConexionBD.cancelarCita(elCodigo);
+        System.out.println(log);
     }//GEN-LAST:event_botonAgendarCitaActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,5 +166,6 @@ public class CancelarCitaVista extends javax.swing.JFrame {
     private ComponentesUI.Combobox citasPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabeltitle;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

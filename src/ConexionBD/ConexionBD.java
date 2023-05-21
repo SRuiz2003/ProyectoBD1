@@ -10,16 +10,17 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.LinkedList;
 
+
 /**
  *
  * @author saimo
  */
 public class ConexionBD {
-    private int cedulaUsuario;
+    private static int cedulaUsuario;
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql:///CLINICAV2";
-    private Statement statement;
-    private Connection connection;
+    private static Statement statement;
+    private static Connection connection;
     
     public ConexionBD(){
     }
@@ -29,10 +30,23 @@ public class ConexionBD {
     }
 
     public void setCedulaUsuario(int cedulaUsuario) {
-        this.cedulaUsuario = cedulaUsuario;
+        ConexionBD.cedulaUsuario = cedulaUsuario;
     }
     
-    public int loginUsuario(int cedula, String contraseñaDada, boolean tipo){
+    public static int validate(int cedula,String ps, char[] pass) {
+    String password = new String(pass);
+
+    if (ps.equals(password)){
+    cedulaUsuario = cedula;
+    return 1;
+            }else{
+                return 0;
+            }
+    }
+
+
+    
+    public static int loginUsuario(int cedula, char[] contraseñaDada, boolean tipo){
     String laConsulta;
     String laContraseña = "";
     try{
@@ -51,17 +65,14 @@ public class ConexionBD {
             System.out.println( cedula );
             laContraseña = resultSet.getString(1);
          }
-            if(laContraseña.equals(contraseñaDada)){
-               cedulaUsuario = cedula;
-               return cedula;
+            int test = validate(cedula,laContraseña,contraseñaDada);
+            if (test == 1){
+            return 1;
             }else{
-            
-                JOptionPane.showMessageDialog( null,
+            JOptionPane.showMessageDialog( null,
                 "La contraseña o el usuario no coinciden","Error al ingresar sus datos",JOptionPane.ERROR_MESSAGE );
-                return 0;
+            return 0;
             }
-            
-            
             
         }
         catch( SQLException sqlException ){
@@ -87,13 +98,14 @@ public class ConexionBD {
                 }
             }
             
-    public int agendarCita(int cedulaPaciente,String fechaCita, String horaCita,int cedulaDoctor) {
+    public static int agendarCita(int cedulaPaciente,String fechaCita, String horaCita,int cedulaDoctor) {
         
         try {
             Instant instant = Instant.now();
             
             long codigo = instant.getEpochSecond();
             connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+            statement = connection.createStatement();
             // Preparar la consulta SQL para insertar la cita en la base de datos
             String sql1 =String.format("INSERT INTO citas (codigo, fecha, hora,cedula_paciente  ) VALUES (%d, '%s', '%s', %d)",codigo,fechaCita,horaCita, cedulaPaciente);
             String sql2 = String.format("UPDATE horarios SET codigo_cita = %d WHERE fecha = '%s' AND hora = '%s' AND cedula_medico = %d ", codigo, fechaCita,horaCita,cedulaDoctor);
@@ -129,7 +141,171 @@ public class ConexionBD {
                                             }
                 }
             }
+            
+            
+     public static String consultarCita(Long codigoCita) {
+        try {
+            String res;
+            // Establecer la conexión a la base de datos
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+            // Preparar la consulta SQL para obtener la información de la cita
+            String sql = String.format("SELECT codigo, fecha, hora, descripcion, estado, tipo FROM citas WHERE codigo = %d AND cedula_paciente = %d ", codigoCita,cedulaUsuario);
+            statement = connection.createStatement();
+            
+
+            // Ejecutar la consulta
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                // Obtener la información de la cita
+                String codigo = resultSet.getString("codigo");
+                Date fecha = resultSet.getDate("fecha");
+                Time hora = resultSet.getTime("hora");
+                String descripcion = resultSet.getString("descripcion");
+                String estado = resultSet.getString("estado");
+                String tipo = resultSet.getString("tipo");
+                // Pasar fecha y hora a String
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat timeAtter = new SimpleDateFormat("HH-mm-ss");
+                // Mostrar la información de la cita en el área de texto
+                return res = "Código: " + codigo + "\n"
+                        + "Fecha: " + formatter.format(fecha) + "\n"
+                        + "Hora: " + timeAtter.format(hora) + "\n"
+                        + "Descripción: " + descripcion + "\n"
+                        + "Estado: " + estado + "\n"
+                        + "Tipo: " + tipo ;
+            } else {
+                // No se encontró la cita con el código proporcionado
+                return res = "Cita no encontrada";
+            }
+        } catch (SQLException e) {
+            // Manejar cualquier error de base de datos
+            JOptionPane.showMessageDialog( null,
+               e.getMessage(), "Error",
+               JOptionPane.ERROR_MESSAGE );
+            return "Error";
+        } finally {
+            // Cerrar la conexión a la base de datos
+            try {            
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
         }
+    }        
+    
+    public static int cancelarCita(long codigoCita) {
+    try {
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para cancelar la cita en la base de datos
+        String sql1 = String.format("DELETE FROM citas WHERE codigo = %d", codigoCita);
+        String sql2 = String.format("UPDATE horarios SET codigo_cita = NULL WHERE codigo_cita = %d",codigoCita);
+        
+        // Ejecutar la consulta
+        statement.executeUpdate(sql1);
+        statement.executeUpdate(sql2);
+        
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Cita cancelada correctamente");
+        return 1;
+    } catch (SQLException e) {
+        // Manejar cualquier error de base de datos
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error al cancelar la cita", JOptionPane.ERROR_MESSAGE);
+        System.out.println(e);
+        return 0;
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+            statement.close();
+            connection.close();
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
+} 
+    
+    public static void crearMedico(int cedula,String nombre, String apellido, String contraseña, int telefono, String especialidad, String correo, float tarifa) {
+        
+        try {
+            // Establecer la conexión a la base de datos
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+            statement = connection.createStatement();
+
+            // Preparar la consulta SQL para insertar el médico en la base de datos
+            String sql = String.format("INSERT INTO medicos (nombre, apellido, cedula, telefono, correo_electronico, especialidad, contraseña, tarifa_hora) VALUES ('%s','%s',%d, %d, '%s', '%s', '%s', %f)", nombre,apellido,cedula,telefono,correo,especialidad,contraseña,tarifa);            
+            // Ejecutar la consulta
+            statement.executeUpdate(sql);
+            // Mostrar un mensaje de éxito al usuario
+            JOptionPane.showMessageDialog(null, "Médico creado correctamente");
+
+        } catch (SQLException e) {
+            // Manejar cualquier error de base de datos
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al crear el médico");
+        } finally {
+            // Cerrar la conexión a la base de datos
+            try {
+            statement.close();
+            connection.close();
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+        }
+    }
+    
+    
+    private void crearPaciente(String nombre, String apellidos, int cedula, int telefono, String correo, String fechaNacimiento, boolean tieneEnfermedadesPreexistentes, boolean tieneAlergias, String grupoSanguineo, String factorRH, String direccion, String contraseña) {
+   
+
+    try {
+        // Establecer la conexión a la base de datos
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+
+        // Preparar la consulta SQL para insertar el paciente en la base de datos
+        String sql = String.format("INSERT INTO pacientes (nombre, apellido, cedula, telefono, correo_electronico, fecha_nacimiento, enfermedades_preexistentes, alergias, grupo_sanguineo, factor_rh, direccion, contraseña) VALUES ('%s', '%s', %d, %d, '%s', '%s', %b, %b, '%s', '%s', '%s', '%s')", nombre, apellidos, cedula, telefono, correo, fechaNacimiento, tieneEnfermedadesPreexistentes, tieneAlergias, grupoSanguineo, factorRH, direccion, contraseña);
+
+        // Ejecutar la consulta
+        statement.executeUpdate(sql);
+
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Paciente creado correctamente");
+    } catch (SQLException e) {
+        // Manejar cualquier error de base de datos
+        JOptionPane.showMessageDialog(null, "Error al crear el paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+            // Cerrar la conexión a la base de datos
+            try {
+            statement.close();
+            connection.close();
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
+}
+   
+
+}
+
+
+
+
+    
+
+   
+
     
     
     

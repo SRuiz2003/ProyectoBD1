@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Vista;
-
+import ConexionBD.ConexionBD;
 /**
  *
  * @author edgue
@@ -169,6 +169,8 @@ public class ConsultarCitas extends javax.swing.JFrame {
 
     private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
         // TODO add your handling code here:
+        Long elCodigoDado = Long.valueOf(campoConsultaCita.getText());
+        System.out.println(ConexionBD.consultarCita(elCodigoDado));
         
     }//GEN-LAST:event_botonConsultarActionPerformed
 

@@ -6,6 +6,7 @@
 package Vista;
 
 import Fuentes.Fuente;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 
 /**
@@ -42,7 +43,7 @@ public class LoginVista extends javax.swing.JFrame {
         botonCrearUsuario = new ComponentesUI.Button();
         campoContraseña = new CampoContraseña.PasswordField();
         imagenLogin = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        tipoUsuario = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -95,7 +96,7 @@ public class LoginVista extends javax.swing.JFrame {
         imagenLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoLogin.png"))); // NOI18N
         imagenLogin.setIconTextGap(-4);
 
-        jCheckBox1.setText("Marque esta casilla si desea acceder como medico");
+        tipoUsuario.setText("Marque esta casilla si desea acceder como medico");
 
         javax.swing.GroupLayout backgroundLoginLayout = new javax.swing.GroupLayout(backgroundLogin);
         backgroundLogin.setLayout(backgroundLoginLayout);
@@ -130,7 +131,7 @@ public class LoginVista extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLoginLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1)
+                        .addComponent(tipoUsuario)
                         .addGap(69, 69, 69)))
                 .addComponent(imagenLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -150,7 +151,7 @@ public class LoginVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox1)
+                .addComponent(tipoUsuario)
                 .addGap(18, 18, 18)
                 .addComponent(botonIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -185,6 +186,24 @@ public class LoginVista extends javax.swing.JFrame {
 
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         // TODO add your handling code here:
+        int LaCedula = Integer.parseInt(campoCedula.getText());
+        char[] LaContraseña = campoContraseña.getPassword();
+        boolean elTipo = tipoUsuario.isSelected();
+        int log = ConexionBD.ConexionBD.loginUsuario(LaCedula, LaContraseña, elTipo);
+        if(log == 1 && elTipo){
+            this.dispose();
+            MenuMedicos med = new MenuMedicos();
+            med.setVisible(true);
+        }else{
+            if( log ==1 && !elTipo){
+            
+                this.dispose();
+                MenuPaciente win = new MenuPaciente();
+                win.setVisible(true);
+                
+                
+            }
+        }
     }//GEN-LAST:event_botonIniciarSesionActionPerformed
 
     /**
@@ -230,11 +249,11 @@ public class LoginVista extends javax.swing.JFrame {
     private ComponentesUI.TextField campoCedula;
     private CampoContraseña.PasswordField campoContraseña;
     private javax.swing.JLabel imagenLogin;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JCheckBox tipoUsuario;
     // End of variables declaration//GEN-END:variables
 }

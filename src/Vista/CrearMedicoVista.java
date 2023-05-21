@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Santiago Cortés
@@ -227,6 +229,21 @@ public class CrearMedicoVista extends javax.swing.JFrame {
 
     private void botonCrearMedico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearMedico1ActionPerformed
         // TODO add your handling code here:
+        int laCedula = Integer.parseInt(campoCedulaMedico.getText());
+        String elNombre = campoNombreMedico.getText();
+        String Apellidos = campoApellidosMedico.getText();
+        int  elTelefono = Integer.parseInt(campoTelefonoMedico.getText());
+        String laEspecialidad = campoEspecialidadMedico.getText();
+        String elCorreo= campoCorreoMedico.getText();
+        float laTarifa = Float.parseFloat(campoTarifa.getText());
+        String contraseña = new String(campoContraseñaMedico.getPassword());
+        String confirmarContraseña = new String(campoContraseñaMedico2.getPassword());
+        if (!contraseña.equals(confirmarContraseña)) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+        }else{
+        ConexionBD.ConexionBD.crearMedico(laCedula, elNombre, Apellidos, contraseña, elTelefono, laEspecialidad, elCorreo, laTarifa);
+        }
+        
     }//GEN-LAST:event_botonCrearMedico1ActionPerformed
 
     /**

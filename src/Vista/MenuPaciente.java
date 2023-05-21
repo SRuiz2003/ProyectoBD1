@@ -123,6 +123,9 @@ public class MenuPaciente extends javax.swing.JFrame {
 
     private void botonCancelarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarCitaActionPerformed
         // TODO add your handling code here:
+        
+        
+        
         CancelarCitaVista ventana = new CancelarCitaVista();
         ventana.setVisible(true);
         this.dispose();
