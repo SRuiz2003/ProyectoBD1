@@ -366,6 +366,150 @@ public class ConexionBD {
     
     }
     
+    public static int aceptarCita(int cedulaPaciente,String fechaCita, String horaCita,int cedulaDoctor) {
+
+    try {
+        Instant instant = Instant.now();
+
+        long codigo = instant.getEpochSecond();
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para insertar la cita en la base de datos
+        String sql1 =String.format("UPDATE citas SET estado = 'COMPLETADA', aceptado = true WHERE codigo = %s",codigo);
+
+        // Ejecutar la consulta
+        statement.executeUpdate(sql1);
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Cita aceptada correctamente");
+        return 1;
+
+    }catch(SQLException e){
+        // Manejar cualquier error de base de datos
+       JOptionPane.showMessageDialog( null,
+           e.getMessage(), "Error al aceptar la cita",
+           JOptionPane.ERROR_MESSAGE );
+       return 0;
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+        statement.close();
+        connection.close();
+        }
+
+     // Maneja las excepciones que puedan ocurrir en el cierre
+     catch ( SQLException sqlException ) {
+        JOptionPane.showMessageDialog( null,
+           sqlException.getMessage(), "Database Error",
+           JOptionPane.ERROR_MESSAGE );
+
+        System.exit( 1 );
+                                        }
+            }
+        }
+        
+    
+    public static int eliminarCita(long codigoCita) {
+    try {
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para cancelar la cita en la base de datos
+        String sql1 = String.format("DELETE FROM citas WHERE codigo = %d", codigoCita);
+        
+        // Ejecutar la consulta
+        statement.executeUpdate(sql1);
+        
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Cita eliminada correctamente");
+        return 1;
+    } catch (SQLException e) {
+        // Manejar cualquier error de base de datos
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error al eliminar la cita", JOptionPane.ERROR_MESSAGE);
+        System.out.println(e);
+        return 0;
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+            statement.close();
+            connection.close();
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
+} 
+    
+    public static int verCita(int cedulaPaciente,String fechaCita, String horaCita,int cedulaDoctor) {
+
+    try {
+        Instant instant = Instant.now();
+
+        long codigo = instant.getEpochSecond();
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para insertar la cita en la base de datos
+        String sql1 =String.format("SELECT codigo, cedula_paciente, nombre, hora, estado, tipo, descripcion FROM citas");
+
+        // Ejecutar la consulta
+        statement.executeUpdate(sql1);
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Cita aceptada correctamente");
+        return 1;
+
+    }catch(SQLException e){
+        // Manejar cualquier error de base de datos
+       JOptionPane.showMessageDialog( null,
+           e.getMessage(), "Error al aceptar la cita",
+           JOptionPane.ERROR_MESSAGE );
+       return 0;
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+        statement.close();
+        connection.close();
+        }
+
+     // Maneja las excepciones que puedan ocurrir en el cierre
+     catch ( SQLException sqlException ) {
+        JOptionPane.showMessageDialog( null,
+           sqlException.getMessage(), "Database Error",
+           JOptionPane.ERROR_MESSAGE );
+
+        System.exit( 1 );
+                                        }
+            }
+        }
+        
+    public static int modificarCita(int codigoCita, String nuevaFecha, String nuevoTipoCita, String nuevoEstado, String nuevoDiagnostico, String nuevoReporte, String nuevoTratamiento, String nuevasRecomendaciones) {
+    try {
+        // Establecer la conexión a la base de datos
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para cancelar la cita en la base de datos
+        String sql1 = String.format("UPDATE CITAS SET fecha = %s, tipo = %s, estado = %b, descripcion = %s WHERE codigo = %s", nuevaFecha, nuevoTipoCita, nuevoEstado, nuevoDiagnostico, nuevoReporte, nuevoTratamiento, nuevasRecomendaciones, codigoCita);
+        
+        // Ejecutar la consulta
+        statement.executeUpdate(sql1);
+        
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Cita modificada correctamente");
+        return 1;
+    } catch (SQLException e) {
+        // Manejar cualquier error de base de datos
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error al modificarar la cita", JOptionPane.ERROR_MESSAGE);
+        System.out.println(e);
+        return 0;
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+            statement.close();
+            connection.close();
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
+} 
+    
 }
 
 
