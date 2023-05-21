@@ -8,16 +8,18 @@ package Vista;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Santiago Cortés
  */
 public class CrearPacienteVista extends javax.swing.JFrame {
-
+    private File historyFile = null;
     /**
      * Creates new form Login
      */
@@ -151,17 +153,25 @@ public class CrearPacienteVista extends javax.swing.JFrame {
         });
         bg.add(jchooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 200, 44, 39));
 
-        grupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "AB", "B", "O", " " }));
-        grupoSanguineo.setSelectedIndex(4);
+        grupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "AB", "B", "O" }));
         grupoSanguineo.setToolTipText("");
         grupoSanguineo.setLabeText("Grupo sanguíneo");
         grupoSanguineo.setLineColor(new java.awt.Color(0, 153, 153));
+        grupoSanguineo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                grupoSanguineoActionPerformed(evt);
+            }
+        });
         bg.add(grupoSanguineo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 129, 50));
 
-        factorRH.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "" }));
-        factorRH.setSelectedIndex(2);
+        factorRH.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-" }));
         factorRH.setLabeText("RH");
         factorRH.setLineColor(new java.awt.Color(0, 153, 153));
+        factorRH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                factorRHActionPerformed(evt);
+            }
+        });
         bg.add(factorRH, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 52, 50));
 
         campoDireccionPaciente.setBackground(new java.awt.Color(252, 252, 252));
@@ -273,6 +283,15 @@ public class CrearPacienteVista extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private String getFileExtension(File file) {
+    String name = file.getName();
+    int lastIndexOf = name.lastIndexOf(".");
+    if (lastIndexOf == -1) {
+        return ""; // empty extension
+    }
+    return name.substring(lastIndexOf);
+}
+    
     private void campoNombrePacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoNombrePacienteMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNombrePacienteMouseClicked
@@ -307,7 +326,7 @@ public class CrearPacienteVista extends javax.swing.JFrame {
         Date selectedDate = jchooser.getDate();
 
         if (selectedDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = dateFormat.format(selectedDate);
             campoFechaNacimiento.setText(formattedDate);
         }
@@ -339,15 +358,52 @@ public class CrearPacienteVista extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(this); // Muestra el diálogo de selección de archivos
 
+        // Aquí puedes hacer algo con el archivo seleccionado, como mostrar su nombre en un JLabel o realizar alguna operación con él.
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            // Aquí puedes hacer algo con el archivo seleccionado, como mostrar su nombre en un JLabel o realizar alguna operación con él.
+            String extension = getFileExtension(selectedFile);
+            if( extension.equals(".txt") || extension.equals(".doc") || extension.equals(".pdf")){
+            
+                historyFile = selectedFile;
+            }else{
+            JOptionPane.showMessageDialog(null, "Su archivo debe estar en formato txt, doc o pdf " , "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
         }
     }//GEN-LAST:event_botonSubirHistoriaActionPerformed
 
     private void botonCrearPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearPacienteActionPerformed
         // TODO add your handling code here:
+        try{
+            String elNombre = campoNombrePaciente.getText();
+            String Apellidos = campoApellidosPaciente.getText();
+            int laCedula = Integer.parseInt(campoCedulaPaciente.getText());
+            int elTelefono = Integer.parseInt(campoTelefonoPaciente.getText());
+            String elCorreo = campoCorreoPaciente.getText();
+            String laFechaNac = campoFechaNacimiento.getText();
+            boolean lasEnfermedades = enfermedades.isSelected();
+            boolean lasAlergias = alergias.isSelected();
+            String elGrupoSagnguineo = grupoSanguineo.getSelectedItem().toString() + factorRH.getSelectedItem().toString(); 
+            String laDireccion = campoDireccionPaciente.getText();
+            String pass1 = new String(campoContraseñaPaciente.getPassword());
+            String pass2 = new String(campoContraseñaPaciente2.getPassword());
+            if (!pass1.equals(pass2)) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+        }else{
+        ConexionBD.ConexionBD.crearPaciente(elNombre,Apellidos,laCedula,elTelefono, elCorreo, laFechaNac,lasEnfermedades,lasAlergias,elGrupoSagnguineo,laDireccion,pass1,historyFile);
+        }            
+        }catch(NullPointerException | NumberFormatException | IOException e){
+        JOptionPane.showMessageDialog(null, "Error al crear el paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);         
+        }
     }//GEN-LAST:event_botonCrearPacienteActionPerformed
+
+    private void factorRHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_factorRHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_factorRHActionPerformed
+
+    private void grupoSanguineoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grupoSanguineoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grupoSanguineoActionPerformed
 
     /**
      * @param args the command line arguments

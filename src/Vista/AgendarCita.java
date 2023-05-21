@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 /**
@@ -18,6 +21,7 @@ public class AgendarCita extends javax.swing.JFrame {
      */
     public AgendarCita() {
         initComponents();
+        UpdateMedicsList();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
@@ -75,6 +79,11 @@ public class AgendarCita extends javax.swing.JFrame {
         medicos.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         medicos.setLabeText("");
         medicos.setLineColor(new java.awt.Color(0, 153, 153));
+        medicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medicosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -124,6 +133,13 @@ public class AgendarCita extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void UpdateMedicsList(){
+        String[] meds = ConexionBD.ConexionBD.consultarMedicos();
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(meds);
+        medicos.setModel(comboBoxModel);
+    }
+    
+    
     private void botonVerHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerHorarioActionPerformed
         // TODO add your handling code here:
         VerHorarioVista ventana = new VerHorarioVista();
@@ -137,6 +153,10 @@ public class AgendarCita extends javax.swing.JFrame {
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void medicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medicosActionPerformed
 
     /**
      * @param args the command line arguments

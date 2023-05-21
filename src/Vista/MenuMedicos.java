@@ -119,6 +119,9 @@ public class MenuMedicos extends javax.swing.JFrame {
 
     private void botonAgendarCitas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitas1ActionPerformed
         // TODO add your handling code here:
+        GestionarCitasVista ventana = new GestionarCitasVista();
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botonAgendarCitas1ActionPerformed
 
     /**

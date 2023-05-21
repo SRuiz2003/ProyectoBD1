@@ -8,7 +8,14 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+
 
 
 /**
@@ -17,6 +24,7 @@ import java.util.LinkedList;
  */
 public class ConexionBD {
     private static int cedulaUsuario;
+    private static String nombreUsuario;
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql:///CLINICAV2";
     private static Statement statement;
@@ -48,15 +56,16 @@ public class ConexionBD {
     
     public static int loginUsuario(int cedula, char[] contraseñaDada, boolean tipo){
     String laConsulta;
+    String nombreDado = null;
     String laContraseña = "";
     try{
             connection = DriverManager.getConnection( DATABASE_URL,"root","root" );
             statement = connection.createStatement();
             
             if(tipo){
-            laConsulta = String.format(" SELECT contraseña FROM medicos WHERE cedula = %d ", cedula);
+            laConsulta = String.format(" SELECT contraseña, nombre FROM medicos WHERE cedula = %d ", cedula);
             }else{
-            laConsulta = String.format(" SELECT contraseña FROM pacientes WHERE cedula = %d ", cedula);
+            laConsulta = String.format(" SELECT contraseña, nombre FROM pacientes WHERE cedula = %d ", cedula);
             }
             
             ResultSet resultSet = statement.executeQuery( laConsulta );
@@ -64,9 +73,11 @@ public class ConexionBD {
             while(resultSet.next()){
             System.out.println( cedula );
             laContraseña = resultSet.getString(1);
+            nombreDado = resultSet.getString(2);
          }
             int test = validate(cedula,laContraseña,contraseñaDada);
             if (test == 1){
+            nombreUsuario  = nombreDado;    
             return 1;
             }else{
             JOptionPane.showMessageDialog( null,
@@ -265,7 +276,7 @@ public class ConexionBD {
     }
     
     
-    private void crearPaciente(String nombre, String apellidos, int cedula, int telefono, String correo, String fechaNacimiento, boolean tieneEnfermedadesPreexistentes, boolean tieneAlergias, String grupoSanguineo, String factorRH, String direccion, String contraseña) {
+    public static void crearPaciente(String nombre, String apellidos, int cedula, int telefono, String correo, String fechaNacimiento, boolean tieneEnfermedadesPreexistentes, boolean tieneAlergias, String grupoSanguineo, String direccion, String contraseña, File historialMedico) throws IOException {
    
 
     try {
@@ -274,11 +285,25 @@ public class ConexionBD {
         statement = connection.createStatement();
 
         // Preparar la consulta SQL para insertar el paciente en la base de datos
-        String sql = String.format("INSERT INTO pacientes (nombre, apellido, cedula, telefono, correo_electronico, fecha_nacimiento, enfermedades_preexistentes, alergias, grupo_sanguineo, factor_rh, direccion, contraseña) VALUES ('%s', '%s', %d, %d, '%s', '%s', %b, %b, '%s', '%s', '%s', '%s')", nombre, apellidos, cedula, telefono, correo, fechaNacimiento, tieneEnfermedadesPreexistentes, tieneAlergias, grupoSanguineo, factorRH, direccion, contraseña);
-
-        // Ejecutar la consulta
+        String sql = String.format("INSERT INTO pacientes ( cedula, nombre, contraseña, apellido, telefono, direccion, correo_electronico, grupo_sanguineo, alergias, enfermedades_preexistentes,fecha_nacimiento) VALUES (%d, '%s', '%s', '%s', %d, '%s', '%s', '%s' , %b, %b, '%s')", 
+                                                                cedula, nombre, contraseña, apellidos, telefono,direccion,correo,grupoSanguineo,tieneAlergias,  tieneEnfermedadesPreexistentes, fechaNacimiento);
+        
+        
         statement.executeUpdate(sql);
-
+        
+        if(historialMedico != null){
+        String path = historialMedico.getAbsolutePath();
+        byte[] historyBytes = Files.readAllBytes(Paths.get(path));
+        StringBuilder hexString = new StringBuilder();  
+        for (byte b : historyBytes) {  
+            hexString.append(Integer.toHexString(b));  
+            }
+            System.out.println(hexString);//TBD
+            String sql2 = String.format("UPDATE pacientes SET historial_medico = x'%s' WHERE cedula = %d ", hexString,cedula);
+            statement.executeUpdate(sql2);
+        }
+        // Ejecutar la consulta
+        
         // Mostrar un mensaje de éxito al usuario
         JOptionPane.showMessageDialog(null, "Paciente creado correctamente");
     } catch (SQLException e) {
@@ -296,7 +321,51 @@ public class ConexionBD {
     }
 }
    
+    public static String[] consultarMedicos(){
+    String[] res = null;
+        try{
+            
+            ArrayList<String> losNombres = new ArrayList<>();
+            connection = DriverManager.getConnection( DATABASE_URL,"root","root" );
+            statement = connection.createStatement();
+                     
+            String laConsulta = " SELECT nombre FROM medicos" ;
+            ResultSet resultSet = statement.executeQuery( laConsulta );
+           
+            while(resultSet.next()){
+            losNombres.add(resultSet.getString(1));
+         }
+        Object[] nomOb = losNombres.toArray();
+        String[] nomArr = Arrays.copyOf(nomOb, nomOb.length, String[].class);
+                    
+            res = nomArr;
+            return res; 
+            }
+           
+        catch( SQLException sqlException ){
+            JOptionPane.showMessageDialog( null, sqlException.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+             return res;
+        }
+        finally {
 
+         try {
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+                }
+    
+    }
+    
 }
 
 

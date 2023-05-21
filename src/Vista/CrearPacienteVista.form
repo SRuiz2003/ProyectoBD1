@@ -228,21 +228,22 @@
         <Component class="ComponentesUI.Combobox" name="grupoSanguineo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
+              <StringArray count="4">
                 <StringItem index="0" value="A"/>
                 <StringItem index="1" value="AB"/>
                 <StringItem index="2" value="B"/>
                 <StringItem index="3" value="O"/>
-                <StringItem index="4" value=" "/>
               </StringArray>
             </Property>
-            <Property name="selectedIndex" type="int" value="4"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="labeText" type="java.lang.String" value="Grupo sangu&#xed;neo"/>
             <Property name="lineColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="grupoSanguineoActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="340" y="290" width="129" height="50"/>
@@ -252,18 +253,19 @@
         <Component class="ComponentesUI.Combobox" name="factorRH">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="2">
                 <StringItem index="0" value="+"/>
                 <StringItem index="1" value="-"/>
-                <StringItem index="2" value=""/>
               </StringArray>
             </Property>
-            <Property name="selectedIndex" type="int" value="2"/>
             <Property name="labeText" type="java.lang.String" value="RH"/>
             <Property name="lineColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="factorRHActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="480" y="290" width="52" height="50"/>
