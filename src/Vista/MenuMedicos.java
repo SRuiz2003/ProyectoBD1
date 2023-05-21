@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Santiago Cortés
@@ -16,6 +18,7 @@ public class MenuMedicos extends javax.swing.JFrame {
      */
     public MenuMedicos() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**
@@ -30,9 +33,10 @@ public class MenuMedicos extends javax.swing.JFrame {
         bg = new javax.swing.JPanel();
         jLabeltitle = new javax.swing.JLabel();
         jLabeltext = new javax.swing.JLabel();
-        botonAgendarCitas = new ComponentesUI.Button();
+        botonCrearHorario = new ComponentesUI.Button();
         botonSalir = new ComponentesUI.Button();
         jLabel1 = new javax.swing.JLabel();
+        botonAgendarCitas1 = new ComponentesUI.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú médicos");
@@ -50,16 +54,16 @@ public class MenuMedicos extends javax.swing.JFrame {
         jLabeltext.setName("jlabeltext");
         bg.add(jLabeltext, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
-        botonAgendarCitas.setBackground(new java.awt.Color(78, 158, 185));
-        botonAgendarCitas.setForeground(new java.awt.Color(244, 240, 238));
-        botonAgendarCitas.setText("Gestionar citas");
-        botonAgendarCitas.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        botonAgendarCitas.addActionListener(new java.awt.event.ActionListener() {
+        botonCrearHorario.setBackground(new java.awt.Color(78, 158, 185));
+        botonCrearHorario.setForeground(new java.awt.Color(244, 240, 238));
+        botonCrearHorario.setText("Crear horario");
+        botonCrearHorario.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonCrearHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAgendarCitasActionPerformed(evt);
+                botonCrearHorarioActionPerformed(evt);
             }
         });
-        bg.add(botonAgendarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 153, 48));
+        bg.add(botonCrearHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 153, 48));
 
         botonSalir.setBackground(new java.awt.Color(78, 158, 185));
         botonSalir.setForeground(new java.awt.Color(244, 240, 238));
@@ -74,6 +78,17 @@ public class MenuMedicos extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
         bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, -1, -1));
+
+        botonAgendarCitas1.setBackground(new java.awt.Color(78, 158, 185));
+        botonAgendarCitas1.setForeground(new java.awt.Color(244, 240, 238));
+        botonAgendarCitas1.setText("Gestionar citas");
+        botonAgendarCitas1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        botonAgendarCitas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgendarCitas1ActionPerformed(evt);
+            }
+        });
+        bg.add(botonAgendarCitas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 153, 48));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,17 +105,21 @@ public class MenuMedicos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonAgendarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitasActionPerformed
+    private void botonCrearHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearHorarioActionPerformed
         // TODO add your handling code here:
-        GestionarCitasVista ventana = new GestionarCitasVista();
+        CrearHorarioVista ventana = new CrearHorarioVista();
         ventana.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_botonAgendarCitasActionPerformed
+    }//GEN-LAST:event_botonCrearHorarioActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void botonAgendarCitas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitas1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAgendarCitas1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,7 +173,8 @@ public class MenuMedicos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private ComponentesUI.Button botonAgendarCitas;
+    private ComponentesUI.Button botonAgendarCitas1;
+    private ComponentesUI.Button botonCrearHorario;
     private ComponentesUI.Button botonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabeltext;

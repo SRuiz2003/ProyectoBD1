@@ -5,6 +5,7 @@
  */
 package Vista;
 import ConexionBD.ConexionBD;
+import javax.swing.ImageIcon;
 /**
  *
  * @author edgue
@@ -16,6 +17,7 @@ public class ConsultarCitas extends javax.swing.JFrame {
      */
     public ConsultarCitas() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**

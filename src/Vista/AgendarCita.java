@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author edgue
@@ -16,6 +18,7 @@ public class AgendarCita extends javax.swing.JFrame {
      */
     public AgendarCita() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**

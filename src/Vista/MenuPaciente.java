@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Santiago Cortés
@@ -16,6 +18,7 @@ public class MenuPaciente extends javax.swing.JFrame {
      */
     public MenuPaciente() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**

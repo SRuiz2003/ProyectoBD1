@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ public class CrearMedicoVista extends javax.swing.JFrame {
      */
     public CrearMedicoVista() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**
@@ -164,7 +166,7 @@ public class CrearMedicoVista extends javax.swing.JFrame {
         bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         campoContraseñaMedico2.setBackground(new java.awt.Color(252, 252, 252));
-        campoContraseñaMedico2.setText("passwordField1");
+        campoContraseñaMedico2.setText("campoContraseña");
         campoContraseñaMedico2.setShadowColor(new java.awt.Color(0, 153, 153));
         bg.add(campoContraseñaMedico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 250, 50));
 
@@ -172,7 +174,7 @@ public class CrearMedicoVista extends javax.swing.JFrame {
         bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, -1, -1));
 
         campoContraseñaMedico.setBackground(new java.awt.Color(252, 252, 252));
-        campoContraseñaMedico.setText("passwordField1");
+        campoContraseñaMedico.setText("campoContraseña");
         campoContraseñaMedico.setShadowColor(new java.awt.Color(0, 153, 153));
         bg.add(campoContraseñaMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 250, 50));
 

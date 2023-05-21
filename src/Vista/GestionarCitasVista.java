@@ -7,6 +7,7 @@ package Vista;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,6 +20,7 @@ public class GestionarCitasVista extends javax.swing.JFrame {
      */
     public GestionarCitasVista() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**

@@ -6,6 +6,7 @@
 package Vista;
 
 import Fuentes.Fuente;
+import javax.swing.ImageIcon;
 
 
 
@@ -21,6 +22,7 @@ public class CrearUsuarioVista extends javax.swing.JFrame {
     public CrearUsuarioVista() {
         initComponents();
         Fuente.aplicarFuente(this);
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**

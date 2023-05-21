@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicPasswordFieldUI;
@@ -52,6 +53,34 @@ public class PasswordField extends JPasswordField {
         setSelectionColor(new Color(133, 209, 255));
         setBorder(new EmptyBorder(10, 12, 15, 12));
         setBackground(new Color(255, 255, 255));
+        
+        addMouseListener(new MouseAdapter() {
+
+            public void mouseEntered(MouseEvent e) {
+                
+                char[] laContraseña = getPassword();
+                String password = new String(laContraseña);
+                
+                if (password.equals("campoContraseña")) {
+                    setText("");
+                }
+
+            }
+        });
+        
+        addMouseListener(new MouseAdapter() {
+
+            public void mouseExited(MouseEvent e) {
+
+                char[] laContraseña = getPassword();
+                String password = new String(laContraseña);
+                
+                if (password.equals("")) {
+                    setText("campoContraseña");
+                }
+
+            }
+        });
     }
 
     @Override

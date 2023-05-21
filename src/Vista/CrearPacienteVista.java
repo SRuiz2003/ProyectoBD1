@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +23,7 @@ public class CrearPacienteVista extends javax.swing.JFrame {
      */
     public CrearPacienteVista() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
     /**
@@ -129,7 +131,7 @@ public class CrearPacienteVista extends javax.swing.JFrame {
         bg.add(campoCorreoPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 256, 47));
 
         campoContraseñaPaciente.setBackground(new java.awt.Color(252, 252, 252));
-        campoContraseñaPaciente.setText("passwordField1");
+        campoContraseñaPaciente.setText("campoContraseña");
         campoContraseñaPaciente.setShadowColor(new java.awt.Color(0, 153, 153));
         bg.add(campoContraseñaPaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 260, 50));
 
@@ -211,7 +213,7 @@ public class CrearPacienteVista extends javax.swing.JFrame {
         bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, -1, -1));
 
         campoContraseñaPaciente2.setBackground(new java.awt.Color(252, 252, 252));
-        campoContraseñaPaciente2.setText("passwordField1");
+        campoContraseñaPaciente2.setText("campoContraseña");
         campoContraseñaPaciente2.setShadowColor(new java.awt.Color(0, 153, 153));
         bg.add(campoContraseñaPaciente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 260, 50));
 
