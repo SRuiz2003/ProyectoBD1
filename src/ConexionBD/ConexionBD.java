@@ -13,8 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 
 
 
@@ -51,9 +51,7 @@ public class ConexionBD {
                 return 0;
             }
     }
-
-
-    
+   
     public static int loginUsuario(int cedula, char[] contraseñaDada, boolean tipo){
     String laConsulta;
     String nombreDado = null;
@@ -109,7 +107,7 @@ public class ConexionBD {
                 }
             }
             
-    public static int agendarCita(int cedulaPaciente,String fechaCita, String horaCita,int cedulaDoctor) {
+    public static int agendarCita(String fechaCita, String horaCita,int cedulaDoctor) {
         
         try {
             Instant instant = Instant.now();
@@ -118,7 +116,7 @@ public class ConexionBD {
             connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
             statement = connection.createStatement();
             // Preparar la consulta SQL para insertar la cita en la base de datos
-            String sql1 =String.format("INSERT INTO citas (codigo, fecha, hora,cedula_paciente  ) VALUES (%d, '%s', '%s', %d)",codigo,fechaCita,horaCita, cedulaPaciente);
+            String sql1 =String.format("INSERT INTO citas (codigo, fecha, hora,cedula_paciente  ) VALUES (%d, '%s', '%s', %d)",codigo,fechaCita,horaCita, cedulaUsuario);
             String sql2 = String.format("UPDATE horarios SET codigo_cita = %d WHERE fecha = '%s' AND hora = '%s' AND cedula_medico = %d ", codigo, fechaCita,horaCita,cedulaDoctor);
             
             // Ejecutar la consulta
@@ -153,8 +151,8 @@ public class ConexionBD {
                 }
             }
             
+    public static String consultarCita(Long codigoCita) {
             
-     public static String consultarCita(Long codigoCita) {
         try {
             String res;
             // Establecer la conexión a la base de datos
@@ -211,7 +209,64 @@ public class ConexionBD {
             System.exit( 1 );
                                             }
         }
-    }        
+    }
+    
+    public static ArrayList consultarAllCitas(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<String[]> lasCitas = new ArrayList<>();
+
+        try{            
+            connection = DriverManager.getConnection( DATABASE_URL,"root","root" );
+            statement = connection.createStatement();
+                     
+            String laConsulta = " SELECT codigo,fecha,hora,descripcion,estado,tipo,aceptado FROM citas" ;
+            ResultSet resultSet = statement.executeQuery( laConsulta );
+           
+            while(resultSet.next()){
+            String elCodigo = Integer.toString(resultSet.getInt(1));
+            String laFecha = dateFormat.format(resultSet.getDate(2));
+            String laHora = resultSet.getTime(3).toString() ;
+            String laDescripcion = resultSet.getString(4) ;
+            String elEstado = resultSet.getString(5);
+            String elTipo = resultSet.getString(6) ;
+            boolean Acep = resultSet.getBoolean(7) ;
+            String elAceptado;
+            if(Acep){
+            elAceptado = "Si";
+            }else{
+            elAceptado = "Pendiente";
+            }
+            String [] cita = {elCodigo,laFecha,laHora,laDescripcion,elEstado,elTipo,elAceptado};
+            lasCitas.add(cita);
+         }
+              
+            return lasCitas; 
+            }
+           
+        catch( SQLException sqlException ){
+            System.out.println(sqlException);
+            JOptionPane.showMessageDialog( null, sqlException.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+             return lasCitas;
+        }
+        finally {
+
+         try {
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            System.out.println(sqlException);
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+                }
+    }
     
     public static int cancelarCita(long codigoCita) {
     try {
@@ -222,8 +277,8 @@ public class ConexionBD {
         String sql2 = String.format("UPDATE horarios SET codigo_cita = NULL WHERE codigo_cita = %d",codigoCita);
         
         // Ejecutar la consulta
-        statement.executeUpdate(sql1);
         statement.executeUpdate(sql2);
+        statement.executeUpdate(sql1);
         
         // Mostrar un mensaje de éxito al usuario
         JOptionPane.showMessageDialog(null, "Cita cancelada correctamente");
@@ -274,7 +329,6 @@ public class ConexionBD {
         }
         }
     }
-    
     
     public static void crearPaciente(String nombre, String apellidos, int cedula, int telefono, String correo, String fechaNacimiento, boolean tieneEnfermedadesPreexistentes, boolean tieneAlergias, String grupoSanguineo, String direccion, String contraseña, File historialMedico) throws IOException {
    
@@ -329,11 +383,12 @@ public class ConexionBD {
             connection = DriverManager.getConnection( DATABASE_URL,"root","root" );
             statement = connection.createStatement();
                      
-            String laConsulta = " SELECT nombre FROM medicos" ;
+            String laConsulta = " SELECT nombre,apellido FROM medicos" ;
             ResultSet resultSet = statement.executeQuery( laConsulta );
            
             while(resultSet.next()){
-            losNombres.add(resultSet.getString(1));
+            String nombreComp = resultSet.getString(1) + " " + resultSet.getString(2);
+            losNombres.add(nombreComp);
          }
         Object[] nomOb = losNombres.toArray();
         String[] nomArr = Arrays.copyOf(nomOb, nomOb.length, String[].class);
@@ -365,6 +420,148 @@ public class ConexionBD {
                 }
     
     }
+ 
+    public static int cedulaMedico(String nombre){
+        int res = 0;
+        try{
+            
+            connection = DriverManager.getConnection( DATABASE_URL,"root","root" );
+            statement = connection.createStatement();
+                     
+            String laConsulta = String.format("SELECT cedula FROM medicos WHERE nombre = '%s'",nombre) ;
+            ResultSet resultSet = statement.executeQuery( laConsulta );
+           
+            while(resultSet.next()){
+            res = resultSet.getInt(1);
+            }                    
+          
+            return res; 
+            }
+           
+        catch( SQLException sqlException ){
+            JOptionPane.showMessageDialog( null, sqlException.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+             return res;
+        }
+        finally {
+
+         try {
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+                }
+    
+    }
+    
+    public static String[] consultarHorario(String nombre , String fechaCita){
+        String[] words = nombre.split("\\s+");
+        int laCedula = cedulaMedico(words[0]);
+        String[] res = {"El medico seleccionado", "No dispone de horario para esta fecha"};
+        try{
+            
+            ArrayList<String> losHorarios = new ArrayList<>();
+            connection = DriverManager.getConnection( DATABASE_URL,"root","root" );
+            statement = connection.createStatement();
+            String laConsulta = String.format("SELECT hora FROM horarios WHERE cedula_medico = %d AND fecha ='%s' AND codigo_cita IS NULL",laCedula,fechaCita);
+            ResultSet resultSet = statement.executeQuery( laConsulta );
+            while(resultSet.next()){
+            Time horaCita = resultSet.getTime(1);
+            losHorarios.add(horaCita.toString());
+         }
+        Object[] nomOb = losHorarios.toArray();
+        String[] nomArr = Arrays.copyOf(nomOb, nomOb.length, String[].class);
+            
+            if(nomArr.length < 1){
+                String[] existingArray = {"El medico seleccionado", "No dispone de horario para esta fecha"};
+                res =  existingArray;
+            }else{
+            res = nomArr;}
+            return res; 
+            }
+           
+        catch( SQLException sqlException ){
+            JOptionPane.showMessageDialog( null, sqlException.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+             return res;
+        }
+        finally {
+
+         try {
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+                }
+    
+    }
+    
+    public static String[] consultarCitas(){
+    String[] res = {"No hay","citas a cancelar"};
+    Date now = Date.valueOf(LocalDate.now());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String fecha = dateFormat.format(now);
+        try{           
+            ArrayList<String> lasCitas = new ArrayList<>();
+            connection = DriverManager.getConnection( DATABASE_URL,"root","root" );
+            statement = connection.createStatement();
+                     
+            String laConsulta = String.format("SELECT codigo, fecha, tipo FROM citas WHERE cedula_paciente = %d AND fecha > '%s'",cedulaUsuario,fecha);
+            ResultSet resultSet = statement.executeQuery( laConsulta );      
+            while(resultSet.next()){
+            String nombreComp = "Cod:"+ Integer.toString(resultSet.getInt(1)) + ", " + dateFormat.format(resultSet.getDate(2))+ ", " +resultSet.getString(3);
+            lasCitas.add(nombreComp);
+         }
+        Object[] citOb = lasCitas.toArray();
+        String[] citArr = Arrays.copyOf(citOb, citOb.length, String[].class);
+            if(citArr.length>1){        
+            res = citArr;
+            }
+            return res; 
+            }
+           
+        catch( SQLException sqlException ){
+            JOptionPane.showMessageDialog( null, sqlException.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+             return res;
+        }
+        finally {
+
+         try {
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+                }
+    
+    }
+        
+        
+    
     
 }
 
