@@ -142,7 +142,9 @@ public class AgendarCita extends javax.swing.JFrame {
     
     private void botonVerHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerHorarioActionPerformed
         // TODO add your handling code here:
-        VerHorarioVista ventana = new VerHorarioVista();
+        
+         String selectedMed = medicos.getSelectedItem().toString();
+        VerHorarioVista ventana = new VerHorarioVista(selectedMed);
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonVerHorarioActionPerformed

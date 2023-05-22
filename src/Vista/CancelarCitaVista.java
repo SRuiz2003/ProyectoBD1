@@ -7,6 +7,7 @@ package Vista;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 /**
@@ -20,6 +21,7 @@ public class CancelarCitaVista extends javax.swing.JFrame {
      */
     public CancelarCitaVista() {
         initComponents();
+        UpdateCitasList();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
     }
 
@@ -38,7 +40,6 @@ public class CancelarCitaVista extends javax.swing.JFrame {
         botonAgendarCita = new ComponentesUI.Button();
         citasPaciente = new ComponentesUI.Combobox();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Horario");
@@ -83,14 +84,6 @@ public class CancelarCitaVista extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
         bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, -10, -1, 390));
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        bg.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,6 +99,12 @@ public class CancelarCitaVista extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+     private void UpdateCitasList(){
+        String[] citas = ConexionBD.ConexionBD.consultarCitas();
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(citas);
+        citasPaciente.setModel(comboBoxModel);
+    }
+    
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
         MenuPaciente ventana = new MenuPaciente();
@@ -116,50 +115,19 @@ public class CancelarCitaVista extends javax.swing.JFrame {
 
     private void botonAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitaActionPerformed
         // TODO add your handling code here:
-        long elCodigo = Long.parseLong(jTextField1.getText());
+        String tosplit =citasPaciente.getSelectedItem().toString();
+        String[] words = tosplit.split(",");
+        String[] codYs = words[0].split(":");
+        long elCodigo = Long.parseLong(codYs[1]);
         int log = ConexionBD.ConexionBD.cancelarCita(elCodigo);
         System.out.println(log);
+        this.dispose();
     }//GEN-LAST:event_botonAgendarCitaActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CancelarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CancelarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CancelarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CancelarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CancelarCitaVista().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
@@ -168,6 +136,5 @@ public class CancelarCitaVista extends javax.swing.JFrame {
     private ComponentesUI.Combobox citasPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabeltitle;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

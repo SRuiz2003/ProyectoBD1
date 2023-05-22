@@ -391,7 +391,8 @@ public class CrearPacienteVista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
         }else{
         ConexionBD.ConexionBD.crearPaciente(elNombre,Apellidos,laCedula,elTelefono, elCorreo, laFechaNac,lasEnfermedades,lasAlergias,elGrupoSagnguineo,laDireccion,pass1,historyFile);
-        }            
+        this.dispose();
+            }            
         }catch(NullPointerException | NumberFormatException | IOException e){
         JOptionPane.showMessageDialog(null, "Error al crear el paciente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);         
         }

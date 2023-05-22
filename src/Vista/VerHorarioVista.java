@@ -5,9 +5,12 @@
  */
 package Vista;
 
+import static ConexionBD.ConexionBD.cedulaMedico;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,12 +18,18 @@ import javax.swing.ImageIcon;
  */
 public class VerHorarioVista extends javax.swing.JFrame {
 
+    private static  String medico;
+
     /**
      * Creates new form VerHorarioVista
+     * @param medico
      */
-    public VerHorarioVista() {
+    public VerHorarioVista(String medico) {
+        VerHorarioVista.medico = medico;
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
+        nombreMedico.setText(medico);
+
     }
 
     /**
@@ -38,7 +47,7 @@ public class VerHorarioVista extends javax.swing.JFrame {
         nombreMedico = new javax.swing.JLabel();
         campoFechaCita = new ComponentesUI.TextField();
         jchooser = new com.toedter.calendar.JDateChooser();
-        grupoSanguineo = new ComponentesUI.Combobox();
+        horarioMedico = new ComponentesUI.Combobox();
         jLabeltext1 = new javax.swing.JLabel();
         botonCancelar = new ComponentesUI.Button();
         botonAgendarCita = new ComponentesUI.Button();
@@ -78,6 +87,7 @@ public class VerHorarioVista extends javax.swing.JFrame {
 
         jchooser.setBackground(new java.awt.Color(255, 255, 255));
         jchooser.setToolTipText("");
+        jchooser.setDateFormatString(" yyyy-MM-dd");
         jchooser.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -92,12 +102,12 @@ public class VerHorarioVista extends javax.swing.JFrame {
         });
         bg.add(jchooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 44, 39));
 
-        grupoSanguineo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", " ", " " }));
-        grupoSanguineo.setToolTipText("");
-        grupoSanguineo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        grupoSanguineo.setLabeText("");
-        grupoSanguineo.setLineColor(new java.awt.Color(0, 153, 153));
-        bg.add(grupoSanguineo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 320, 50));
+        horarioMedico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", " ", " " }));
+        horarioMedico.setToolTipText("");
+        horarioMedico.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        horarioMedico.setLabeText("");
+        horarioMedico.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(horarioMedico, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 320, 50));
 
         jLabeltext1.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabeltext1.setText("El/la Dr(a) ");
@@ -143,7 +153,13 @@ public class VerHorarioVista extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+     private void UpdateHorasList(String fecha){
+        String[] meds = ConexionBD.ConexionBD.consultarHorario(medico, fecha);
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(meds);
+        horarioMedico.setModel(comboBoxModel);
+    }
+    
     private void campoFechaCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoFechaCitaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_campoFechaCitaMouseClicked
@@ -157,9 +173,11 @@ public class VerHorarioVista extends javax.swing.JFrame {
         Date selectedDate = jchooser.getDate();
 
         if (selectedDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = dateFormat.format(selectedDate);
             campoFechaCita.setText(formattedDate);
+            UpdateHorasList(formattedDate);
+            
         }
     }//GEN-LAST:event_jchooserPropertyChange
 
@@ -172,49 +190,31 @@ public class VerHorarioVista extends javax.swing.JFrame {
 
     private void botonAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendarCitaActionPerformed
         // TODO add your handling code here:
+        try{
+            String laFecha = campoFechaCita.getText();
+            String laHora = horarioMedico.getSelectedItem().toString();
+            String[] words = medico.split("\\s+");
+            int laCedula = cedulaMedico(words[0]);
+            ConexionBD.ConexionBD.agendarCita(laFecha, laHora, laCedula);
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog( this, e.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+        }finally{
+        this.dispose();
+        }
     }//GEN-LAST:event_botonAgendarCitaActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerHorarioVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerHorarioVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerHorarioVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerHorarioVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VerHorarioVista().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private ComponentesUI.Button botonAgendarCita;
     private ComponentesUI.Button botonCancelar;
     private ComponentesUI.TextField campoFechaCita;
-    private ComponentesUI.Combobox grupoSanguineo;
+    private ComponentesUI.Combobox horarioMedico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabeltext;
     private javax.swing.JLabel jLabeltext1;
