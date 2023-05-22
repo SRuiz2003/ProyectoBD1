@@ -366,16 +366,13 @@ public class ConexionBD {
     
     }
     
-    public static int aceptarCita(int cedulaPaciente,String fechaCita, String horaCita,int cedulaDoctor) {
+    public static int aceptarCita(long codigo) {
 
     try {
-        Instant instant = Instant.now();
-
-        long codigo = instant.getEpochSecond();
         connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
         statement = connection.createStatement();
         // Preparar la consulta SQL para insertar la cita en la base de datos
-        String sql1 =String.format("UPDATE citas SET estado = 'COMPLETADA', aceptado = true WHERE codigo = %s",codigo);
+        String sql1 =String.format("UPDATE citas SET aceptado = true WHERE codigo = %s",codigo);
 
         // Ejecutar la consulta
         statement.executeUpdate(sql1);
@@ -441,16 +438,14 @@ public class ConexionBD {
     public static int verCita(int cedulaPaciente,String fechaCita, String horaCita,int cedulaDoctor) {
 
     try {
-        Instant instant = Instant.now();
-
-        long codigo = instant.getEpochSecond();
+        String res;
         connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
-        statement = connection.createStatement();
         // Preparar la consulta SQL para insertar la cita en la base de datos
         String sql1 =String.format("SELECT codigo, cedula_paciente, nombre, hora, estado, tipo, descripcion FROM citas");
-
+        statement = connection.createStatement();
         // Ejecutar la consulta
-        statement.executeUpdate(sql1);
+        ResultSet resultSet = statement.executeQuery(sql1);
+        
         // Mostrar un mensaje de éxito al usuario
         JOptionPane.showMessageDialog(null, "Cita aceptada correctamente");
         return 1;
