@@ -63,11 +63,11 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Modificar cita"/>
+            <Property name="text" type="java.lang.String" value="Agregar reporte a cita"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="50" width="349" height="-1"/>
+              <AbsoluteConstraints x="60" y="50" width="400" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -91,20 +91,23 @@
             </Property>
             <Property name="text" type="java.lang.String" value="(Nombre paciente)"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="140" y="160" width="349" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ComponentesUI.Combobox" name="estadoCita">
+        <Component class="ComponentesUI.Combobox" name="estadoCitaCombo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Pendiente"/>
-                <StringItem index="1" value="Completada"/>
-                <StringItem index="2" value="Incumplida"/>
-                <StringItem index="3" value="Cancelada"/>
+                <StringItem index="0" value="PENDIENTE"/>
+                <StringItem index="1" value="COMPLETADA"/>
+                <StringItem index="2" value="INCUMPLIDA"/>
+                <StringItem index="3" value="CANCELADA"/>
               </StringArray>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -135,13 +138,12 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ComponentesUI.Combobox" name="tipoCita">
+        <Component class="ComponentesUI.Combobox" name="codigoEnfermedad">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Consulta"/>
-                <StringItem index="1" value="Ex&#xe1;men"/>
-                <StringItem index="2" value="Cirug&#xed;a"/>
+              <StringArray count="2">
+                <StringItem index="0" value="A02"/>
+                <StringItem index="1" value="A03"/>
               </StringArray>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -155,7 +157,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="170" y="280" width="160" height="40"/>
+              <AbsoluteConstraints x="60" y="460" width="270" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -359,68 +361,27 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ComponentesUI.TextField" name="codigoEnfermedad">
+        <Component class="ComponentesUI.Combobox" name="tipoCitaCombo">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fc" green="fc" red="fc" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Yu Gothic UI" size="13" style="0"/>
-            </Property>
-            <Property name="shadowColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="0" type="rgb"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="codigoEnfermedadMouseClicked"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="codigoEnfermedad.setPlaceholder(&quot;C&#xf3;digo de la enfermedad...&quot;);"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="460" width="270" height="47"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jchooser">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="CONSULTA"/>
+                <StringItem index="1" value="EXAMEN"/>
+                <StringItem index="2" value="CIRUGIA"/>
+              </StringArray>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-          <Events>
-            <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="jchooserInputMethodTextChanged"/>
-            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jchooserPropertyChange"/>
-          </Events>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="270" y="210" width="44" height="39"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="ComponentesUI.TextField" name="campoFechaCita">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fc" green="fc" red="fc" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Yu Gothic UI" size="13" style="0"/>
+              <Font name="Yu Gothic UI" size="14" style="0"/>
             </Property>
-            <Property name="shadowColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+            <Property name="labeText" type="java.lang.String" value=""/>
+            <Property name="lineColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="campoFechaCitaMouseClicked"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="campoFechaCita.setPlaceholder(&quot;Fecha de la cita...&quot;);"/>
-          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="210" width="190" height="47"/>
+              <AbsoluteConstraints x="170" y="280" width="160" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

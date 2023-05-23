@@ -5,22 +5,29 @@
  */
 package Vista;
 
+import ConexionBD.ConexionBD;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author scorg
  */
-public class ModificarCitaVista extends javax.swing.JFrame {
+public class AgregarDatosCita extends javax.swing.JFrame {
+
+    private final String codigo;
 
     /**
      * Creates new form ModificarCitasVista
+     * @param codigo
      */
-    public ModificarCitaVista() {
+    public AgregarDatosCita(String codigo) {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
+        this.codigo = codigo;
+        nombrePaciente.setText(UpdateNombrePaciente(codigo));
     }
 
     /**
@@ -37,9 +44,9 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         jLabeltitle1 = new javax.swing.JLabel();
         jLabeltitle2 = new javax.swing.JLabel();
         nombrePaciente = new javax.swing.JLabel();
-        estadoCita = new ComponentesUI.Combobox();
+        estadoCitaCombo = new ComponentesUI.Combobox();
         jLabeltitle4 = new javax.swing.JLabel();
-        tipoCita = new ComponentesUI.Combobox();
+        codigoEnfermedad = new ComponentesUI.Combobox();
         jLabeltitle5 = new javax.swing.JLabel();
         textAreaScroll2 = new ComponentesUI.TextAreaScroll();
         recomendaciones = new ComponentesUI.TextArea();
@@ -52,9 +59,7 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         botonGuardar = new ComponentesUI.Button();
         botonRegresar = new ComponentesUI.Button();
         jLabel2 = new javax.swing.JLabel();
-        codigoEnfermedad = new ComponentesUI.TextField();
-        jchooser = new com.toedter.calendar.JDateChooser();
-        campoFechaCita = new ComponentesUI.TextField();
+        tipoCitaCombo = new ComponentesUI.Combobox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modificar cita");
@@ -67,8 +72,8 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         bg.add(jLabeltitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 349, -1));
 
         jLabeltitle1.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
-        jLabeltitle1.setText("Modificar cita");
-        bg.add(jLabeltitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 349, -1));
+        jLabeltitle1.setText("Agregar reporte a cita");
+        bg.add(jLabeltitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 400, -1));
 
         jLabeltitle2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabeltitle2.setText("Paciente:");
@@ -78,23 +83,23 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         nombrePaciente.setText("(Nombre paciente)");
         bg.add(nombrePaciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 349, -1));
 
-        estadoCita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendiente", "Completada", "Incumplida", "Cancelada" }));
-        estadoCita.setToolTipText("");
-        estadoCita.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        estadoCita.setLabeText("");
-        estadoCita.setLineColor(new java.awt.Color(0, 153, 153));
-        bg.add(estadoCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 160, 40));
+        estadoCitaCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PENDIENTE", "COMPLETADA", "INCUMPLIDA", "CANCELADA" }));
+        estadoCitaCombo.setToolTipText("");
+        estadoCitaCombo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        estadoCitaCombo.setLabeText("");
+        estadoCitaCombo.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(estadoCitaCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 160, 40));
 
         jLabeltitle4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabeltitle4.setText("Tipo de cita");
         bg.add(jLabeltitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 100, -1));
 
-        tipoCita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consulta", "Exámen", "Cirugía" }));
-        tipoCita.setToolTipText("");
-        tipoCita.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        tipoCita.setLabeText("");
-        tipoCita.setLineColor(new java.awt.Color(0, 153, 153));
-        bg.add(tipoCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 160, 40));
+        codigoEnfermedad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A02", "A03" }));
+        codigoEnfermedad.setToolTipText("");
+        codigoEnfermedad.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        codigoEnfermedad.setLabeText("");
+        codigoEnfermedad.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(codigoEnfermedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 270, 40));
 
         jLabeltitle5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabeltitle5.setText("Estado");
@@ -172,43 +177,12 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
         bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 240, -1, -1));
 
-        codigoEnfermedad.setBackground(new java.awt.Color(252, 252, 252));
-        codigoEnfermedad.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
-        codigoEnfermedad.setShadowColor(new java.awt.Color(0, 153, 153));
-        codigoEnfermedad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                codigoEnfermedadMouseClicked(evt);
-            }
-        });
-        codigoEnfermedad.setPlaceholder("Código de la enfermedad...");
-        bg.add(codigoEnfermedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 270, 47));
-
-        jchooser.setBackground(new java.awt.Color(255, 255, 255));
-        jchooser.setToolTipText("");
-        jchooser.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                jchooserInputMethodTextChanged(evt);
-            }
-        });
-        jchooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jchooserPropertyChange(evt);
-            }
-        });
-        bg.add(jchooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 44, 39));
-
-        campoFechaCita.setBackground(new java.awt.Color(252, 252, 252));
-        campoFechaCita.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
-        campoFechaCita.setShadowColor(new java.awt.Color(0, 153, 153));
-        campoFechaCita.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                campoFechaCitaMouseClicked(evt);
-            }
-        });
-        campoFechaCita.setPlaceholder("Fecha de la cita...");
-        bg.add(campoFechaCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 190, 47));
+        tipoCitaCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CONSULTA", "EXAMEN", "CIRUGIA" }));
+        tipoCitaCombo.setToolTipText("");
+        tipoCitaCombo.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        tipoCitaCombo.setLabeText("");
+        tipoCitaCombo.setLineColor(new java.awt.Color(0, 153, 153));
+        bg.add(tipoCitaCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 160, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,9 +199,36 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private String UpdateNombrePaciente(String codigo){
+    
+        return ConexionBD.consultarNombre(codigo);       
+    }
+    
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         // TODO add your handling code here:
+        try {
 
+            long identificadorCita = Long.parseLong(codigo);
+            String descripcionCitaa = descripcionCita.getText();
+            String tipoCita = tipoCitaCombo.getSelectedItem().toString();
+            String tratamientoo = tratamiento.getText();
+            String recomendacioness = recomendaciones.getText();
+            String estadoCita = estadoCitaCombo.getSelectedItem().toString();
+            String codEnfermedad = codigoEnfermedad.getSelectedItem().toString();
+
+            if (recomendacioness.isEmpty() || tratamientoo.isEmpty() || descripcionCitaa.isEmpty()) {
+                throw new NullPointerException("Campos vacios");
+            }
+
+            ConexionBD.modificarCita(identificadorCita, descripcionCitaa, tipoCita,
+                    tratamientoo, recomendacioness, estadoCita, codEnfermedad);
+            JOptionPane.showMessageDialog(this, "Reporte guardado correctamente");
+            this.dispose();
+            
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error de tipo de dato");
+        } 
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
@@ -237,73 +238,18 @@ public class ModificarCitaVista extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
 
-    private void codigoEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_codigoEnfermedadMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codigoEnfermedadMouseClicked
-
-    private void jchooserInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jchooserInputMethodTextChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jchooserInputMethodTextChanged
-
-    private void jchooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jchooserPropertyChange
-        // TODO add your handling code here:
-        Date selectedDate = jchooser.getDate();
-
-        if (selectedDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String formattedDate = dateFormat.format(selectedDate);
-            campoFechaCita.setText(formattedDate);
-        }
-    }//GEN-LAST:event_jchooserPropertyChange
-
-    private void campoFechaCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoFechaCitaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoFechaCitaMouseClicked
-
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModificarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModificarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModificarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModificarCitaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ModificarCitaVista().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private ComponentesUI.Button botonGuardar;
     private ComponentesUI.Button botonRegresar;
-    private ComponentesUI.TextField campoFechaCita;
-    private ComponentesUI.TextField codigoEnfermedad;
+    private ComponentesUI.Combobox codigoEnfermedad;
     private ComponentesUI.TextArea descripcionCita;
-    private ComponentesUI.Combobox estadoCita;
+    private ComponentesUI.Combobox estadoCitaCombo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabeltitle;
     private javax.swing.JLabel jLabeltitle1;
@@ -312,13 +258,12 @@ public class ModificarCitaVista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabeltitle4;
     private javax.swing.JLabel jLabeltitle5;
     private javax.swing.JLabel jLabeltitle6;
-    private com.toedter.calendar.JDateChooser jchooser;
-    private javax.swing.JLabel nombrePaciente;
+    public static javax.swing.JLabel nombrePaciente;
     private ComponentesUI.TextArea recomendaciones;
     private ComponentesUI.TextAreaScroll textAreaScroll1;
     private ComponentesUI.TextAreaScroll textAreaScroll2;
     private ComponentesUI.TextAreaScroll textAreaScroll3;
-    private ComponentesUI.Combobox tipoCita;
+    private ComponentesUI.Combobox tipoCitaCombo;
     private ComponentesUI.TextArea tratamiento;
     // End of variables declaration//GEN-END:variables
 }

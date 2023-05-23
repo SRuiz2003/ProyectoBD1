@@ -628,11 +628,10 @@ public class ConexionBD {
         try {
             // Establecer la conexión a la base de datos
             connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
-            // Preparar la consulta SQL para obtener la información de la cita
-            String sql = String.format("SELECT Citas.codigo, Citas.cedula_paciente, Pacientes.nombre, Citas.hora, Citas.descripcion, Citas.estado, Citas.tipo FROM citas JOIN Pacientes ON Citas.cedula_paciente = Pacientes.cedula WHERE fecha = '%s' AND cedula_medico = %d ", fechaDada,cedulaUsuario);
+            String sql = String.format("SELECT Citas.codigo, Citas.cedula_paciente , Citas.hora, Citas.descripcion, Citas.estado, Citas.tipo FROM citas JOIN horarios ON citas.codigo = horarios.codigo_cita WHERE horarios.cedula_medico = %d AND citas.fecha = '%s' ", cedulaUsuario,fechaDada);
+            
             statement = connection.createStatement();
-
-            // Ejecutar la consulta
+            // Ejecutar la consultas   
             ResultSet resultSet = statement.executeQuery(sql);
             SimpleDateFormat timeAtter = new SimpleDateFormat("HH-mm");
             while (resultSet.next()) {
@@ -670,6 +669,162 @@ public class ConexionBD {
             System.exit( 1 );
                                             }
         }
+    }
+    
+    public static ArrayList consultarAllCitasMed(){
+        ArrayList<String[]> lasCitas = new ArrayList<>();
+        try{
+            // Establecer la conexión a la base de datos
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+            String sql = String.format("SELECT Citas.codigo, Citas.cedula_paciente , Citas.hora, Citas.descripcion, Citas.estado, Citas.tipo FROM citas JOIN horarios ON citas.codigo = horarios.codigo_cita WHERE horarios.cedula_medico = %d ", cedulaUsuario);
+            
+            statement = connection.createStatement();
+            // Ejecutar la consultas   
+            ResultSet resultSet = statement.executeQuery(sql);
+            SimpleDateFormat timeAtter = new SimpleDateFormat("HH-mm");
+            while (resultSet.next()) {
+                // Obtener la información de la cita
+                String codigo = resultSet.getString(1);
+                String cedula = Integer.toString(resultSet.getInt(2));
+                String hora = timeAtter.format(resultSet.getTime(3));
+                String descripcion = resultSet.getString(4);
+                String estado = resultSet.getString(5);
+                String tipo = resultSet.getString(6);
+                String[] cit = {codigo,cedula,hora,descripcion,estado,tipo}; 
+                lasCitas.add(cit);      
+            } 
+                // No se encontró la cita con el código proporcionado
+                return lasCitas;
+        }
+        catch( SQLException sqlException ){
+            System.out.println(sqlException);
+            JOptionPane.showMessageDialog( null, sqlException.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+             return lasCitas;
+        }
+        finally {
+
+         try {
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            System.out.println(sqlException);
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+                }
+    }
+    
+    public static void modificarCita(long identificadorCita, String descripcionCita, String tipoCita,
+        String tratamiento, String recomendaciones, String estadoCita, String codigoEnfermedad) {
+
+        
+
+        try {
+
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+
+            // Primera consulta: UPDATE reportes
+            String updateReportesQuery = "UPDATE reportes SET tratamiento = ?, recomendaciones = ? WHERE codigo_cita = ?";
+
+            // Segunda consulta: UPDATE citas
+            String updateCitasQuery = "UPDATE citas SET tipo = ?, estado = ?, descripcion = ? WHERE codigo = ?";
+                        
+            // Tercera consulta: UPDATE citas
+            String updateCodigoEnfermedadQuery = "UPDATE REPORTES SET codigo_enfermedad_diagnostico = ? WHERE codigo_cita = ?";
+
+            // Preparar el statement para la primera consulta
+            PreparedStatement updateReportes = connection.prepareStatement(updateReportesQuery);
+            updateReportes.setString(1, tratamiento);
+            updateReportes.setString(2, recomendaciones);
+            updateReportes.setLong(3, identificadorCita);
+
+            // Ejecutar la primera consulta
+            updateReportes.executeUpdate();
+
+            // Preparar el statement para la segunda consulta
+            PreparedStatement updateCitas = connection.prepareStatement(updateCitasQuery);
+            updateCitas.setString(1, tipoCita);
+            updateCitas.setString(2, estadoCita);
+            updateCitas.setString(3, descripcionCita);
+            updateCitas.setLong(4, identificadorCita);
+
+            // Ejecutar la segunda consulta
+            updateCitas.executeUpdate();
+            
+            // Preparar el statement para la tercera consulta
+            PreparedStatement updateCodigoEnfermedad = connection.prepareStatement(updateCodigoEnfermedadQuery);
+            updateCodigoEnfermedad.setString(1, codigoEnfermedad);
+            updateCodigoEnfermedad.setLong(2, identificadorCita);
+            
+            // Ejecutar la segunda consulta
+            updateCitas.executeUpdate();
+
+            // Cerrar los statements
+            updateReportes.close();
+            updateCitas.close();
+            updateCodigoEnfermedad.close();
+
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+
+        } finally {
+
+            try {
+                connection.close();
+            } // Maneja las excepciones que puedan ocurrir en el cierre
+            catch (SQLException sqlException) {
+                JOptionPane.showMessageDialog(null,
+                        sqlException.getMessage(), "Database Error",
+                        JOptionPane.ERROR_MESSAGE);
+
+                System.exit(1);
+            }
+        }
+
+    }
+    
+    public static String consultarNombre(String codigo){
+    
+        try {
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para cancelar la cita en la base de datos
+        String sql = String.format("SELECT pacientes.nombre, pacientes.apellido FROM Pacientes JOIN citas ON pacientes.cedula = citas.cedula_paciente WHERE citas.codigo = %s ",codigo);
+        
+        // Ejecutar la consulta
+        ResultSet rs = statement.executeQuery(sql);
+        if(rs.next()){
+        
+            String elNombre = rs.getString(1) + " " + rs.getString(2) ;
+            return elNombre;
+        }else{
+            return "Paciente no encontrado";
+        }
+               
+    } catch (SQLException e) {
+        // Manejar cualquier error de base de datos
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error al buscar el paciente", JOptionPane.ERROR_MESSAGE);
+        System.out.println(e);
+        return "Paciente no encontrado";
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+            statement.close();
+            connection.close();
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
+            
     }
     
 }

@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
@@ -68,6 +70,8 @@ public class PasswordField extends JPasswordField {
             }
         });
         
+        
+        
         addMouseListener(new MouseAdapter() {
 
             public void mouseExited(MouseEvent e) {
@@ -81,7 +85,30 @@ public class PasswordField extends JPasswordField {
 
             }
         });
+        
+        addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                char[] passwordChars = getPassword();
+                String password = new String(passwordChars);
+                if (password.equals("campoContraseña")) {
+                    setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                char[] passwordChars = getPassword();
+                String password = new String(passwordChars);
+                if (password.isEmpty()) {
+                    setText("campoContraseña");
+                }
+            }
+        });
+        
     }
+    
+    
 
     @Override
     protected void paintComponent(Graphics grphcs) {
