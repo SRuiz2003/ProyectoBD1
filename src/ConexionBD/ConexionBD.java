@@ -151,10 +151,9 @@ public class ConexionBD {
                 }
             }
             
-    public static String consultarCita(Long codigoCita) {
+    public static String[] consultarCita(Long codigoCita) {
             
         try {
-            String res;
             // Establecer la conexión a la base de datos
             connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
             // Preparar la consulta SQL para obtener la información de la cita
@@ -177,22 +176,19 @@ public class ConexionBD {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat timeAtter = new SimpleDateFormat("HH-mm-ss");
                 // Mostrar la información de la cita en el área de texto
-                return res = "Código: " + codigo + "\n"
-                        + "Fecha: " + formatter.format(fecha) + "\n"
-                        + "Hora: " + timeAtter.format(hora) + "\n"
-                        + "Descripción: " + descripcion + "\n"
-                        + "Estado: " + estado + "\n"
-                        + "Tipo: " + tipo ;
+                String[] cita = {codigo,formatter.format(fecha),timeAtter.format(hora),descripcion,estado,tipo};
+                return cita;
             } else {
                 // No se encontró la cita con el código proporcionado
-                return res = "Cita no encontrada";
+                return null;
             }
         } catch (SQLException e) {
             // Manejar cualquier error de base de datos
             JOptionPane.showMessageDialog( null,
                e.getMessage(), "Error",
                JOptionPane.ERROR_MESSAGE );
-            return "Error";
+                String[] empty = {"No","hay","cita","con","este","codigo"};
+                return null;
         } finally {
             // Cerrar la conexión a la base de datos
             try {            
@@ -560,13 +556,123 @@ public class ConexionBD {
     
     }
         
+    public static void aceptarCita(long codigoCita) {
+
+    try {
         
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para insertar la cita en la base de datos
+        String sql1 = String.format("UPDATE citas SET aceptado = true WHERE codigo = %s",codigoCita);
+
+        // Ejecutar la consulta
+        statement.executeUpdate(sql1);
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Cita aceptada correctamente");
+
+    }catch(SQLException e){
+        // Manejar cualquier error de base de datos
+       JOptionPane.showMessageDialog( null,
+           e.getMessage(), "Error al aceptar la cita",
+           JOptionPane.ERROR_MESSAGE );
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+        statement.close();
+        connection.close();
+        }
+
+     // Maneja las excepciones que puedan ocurrir en el cierre
+     catch ( SQLException sqlException ) {
+        JOptionPane.showMessageDialog( null,
+           sqlException.getMessage(), "Database Error",
+           JOptionPane.ERROR_MESSAGE );
+
+        System.exit( 1 );
+                                        }
+            }
+        }    
+    
+    public static void eliminarCita(long codigoCita) {
+    try {
+        connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+        statement = connection.createStatement();
+        // Preparar la consulta SQL para cancelar la cita en la base de datos
+        String sql1 = String.format("DELETE FROM citas WHERE codigo = %d", codigoCita);
+        
+        // Ejecutar la consulta
+        statement.executeUpdate(sql1);
+        
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(null, "Cita eliminada correctamente");
+    } catch (SQLException e) {
+        // Manejar cualquier error de base de datos
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Error al eliminar la cita", JOptionPane.ERROR_MESSAGE);
+        System.out.println(e);
+    } finally {
+        // Cerrar la conexión a la base de datos
+        try {
+            statement.close();
+            connection.close();
+        } catch (SQLException sqlException) {
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
     
     
 }
 
+    public static ArrayList consultarCitasFecha( String fechaDada) {
+        ArrayList<String[]> lasCitas = new ArrayList<>();
+        try {
+            // Establecer la conexión a la base de datos
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+            // Preparar la consulta SQL para obtener la información de la cita
+            String sql = String.format("SELECT Citas.codigo, Citas.cedula_paciente, Pacientes.nombre, Citas.hora, Citas.descripcion, Citas.estado, Citas.tipo FROM citas JOIN Pacientes ON Citas.cedula_paciente = Pacientes.cedula WHERE fecha = '%s' AND cedula_medico = %d ", fechaDada,cedulaUsuario);
+            statement = connection.createStatement();
 
+            // Ejecutar la consulta
+            ResultSet resultSet = statement.executeQuery(sql);
+            SimpleDateFormat timeAtter = new SimpleDateFormat("HH-mm");
+            while (resultSet.next()) {
+                // Obtener la información de la cita
+                String codigo = resultSet.getString(1);
+                String cedula = Integer.toString(resultSet.getInt(2));
+                String hora = timeAtter.format(resultSet.getTime(3));
+                String descripcion = resultSet.getString(4);
+                String estado = resultSet.getString(5);
+                String tipo = resultSet.getString(6);
+                String[] cit = {codigo,cedula,hora,descripcion,estado,tipo}; 
+                lasCitas.add(cit);      
+            } 
+                // No se encontró la cita con el código proporcionado
+                return lasCitas;
+        } catch (SQLException e) {
+            // Manejar cualquier error de base de datos
+            JOptionPane.showMessageDialog( null,
+               e.getMessage(), "Error",
+               JOptionPane.ERROR_MESSAGE );
+            return lasCitas;
+        } finally {
+            // Cerrar la conexión a la base de datos
+            try {            
+            statement.close();
+            connection.close();
+            }
 
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+        }
+    }
+    
+}
 
     
 

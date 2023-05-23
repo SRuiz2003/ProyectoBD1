@@ -7,6 +7,7 @@ package Vista;
 import ConexionBD.ConexionBD;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author edgue
@@ -30,6 +31,8 @@ public class ConsultarCitas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -38,6 +41,19 @@ public class ConsultarCitas extends javax.swing.JFrame {
         botonConsultar = new ComponentesUI.Button();
         botonVerTodasLasCitas = new ComponentesUI.Button();
         botonCancelar = new ComponentesUI.Button();
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Consultar citas");
@@ -60,7 +76,7 @@ public class ConsultarCitas extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -173,13 +189,35 @@ public class ConsultarCitas extends javax.swing.JFrame {
     private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
         // TODO add your handling code here:
         Long elCodigoDado = Long.valueOf(campoConsultaCita.getText());
-        System.out.println(ConexionBD.consultarCita(elCodigoDado));
-        
+        String [] laCita = ConexionBD.consultarCita(elCodigoDado);
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel(); // Suponiendo que tienes una JTable llamada "tablaCitas"
+        modelo.setRowCount(0); // Limpia los datos existentes en la tabla
+        if(laCita == null){
+            String[] empty = {"No","hay","cita","con","este","codigo"};
+            modelo.addRow(empty);
+        }else{
+            modelo.addRow(laCita);
+        }        
     }//GEN-LAST:event_botonConsultarActionPerformed
 
     private void botonVerTodasLasCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerTodasLasCitasActionPerformed
-        // TODO add your handling code here:
+        //TOTO
         ArrayList<String[]> citas = ConexionBD.consultarAllCitas();
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel(); // Suponiendo que tienes una JTable llamada "tablaCitas"
+        modelo.setRowCount(0); // Limpia los datos existentes en la tabla
+        if (citas.size() < 1){
+            String[] empty = {"No","Hay","Citas","Para","Este","Dia","."};
+            modelo.addRow(empty);
+        }
+        else{
+            
+        // Bucle for para recorrer el array de citas
+         for (String[] cita : citas) {
+        // Agrega cada cita a la tabla usando addRow
+        modelo.addRow(cita);
+    }
+         
+        }
         System.out.println(citas);
     }//GEN-LAST:event_botonVerTodasLasCitasActionPerformed
 
@@ -233,6 +271,8 @@ public class ConsultarCitas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabeltitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

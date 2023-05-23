@@ -6,8 +6,10 @@
 package Vista;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,11 +62,6 @@ public class GestionarCitasVista extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
             },
             new String [] {
                 "Identificador cita", "Cedula paciente", "Nombre paciente", "Hora", "Estado", "Tipo de cita", "Descripción"
@@ -106,6 +103,11 @@ public class GestionarCitasVista extends javax.swing.JFrame {
         campoFechaConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 campoFechaConsultaMouseClicked(evt);
+            }
+        });
+        campoFechaConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoFechaConsultaActionPerformed(evt);
             }
         });
         campoFechaConsulta.setPlaceholder("Fecha de consulta...");
@@ -237,9 +239,20 @@ public class GestionarCitasVista extends javax.swing.JFrame {
         Date selectedDate = jchooser.getDate();
 
         if (selectedDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = dateFormat.format(selectedDate);
             campoFechaConsulta.setText(formattedDate);
+            ArrayList<String[]> lasCitas = ConexionBD.ConexionBD.consultarCitasFecha(formattedDate);
+            DefaultTableModel tbModel = (DefaultTableModel)jTable1.getModel();
+            if(lasCitas.size()<1){               
+                String[] empty = {"No","Hay","Citas","Para","Este","Dia","."};
+                tbModel.addRow(empty);
+            }else{
+            
+                for(String[] b : lasCitas){
+                  tbModel.addRow(b);
+                }                
+            }
         }
     }//GEN-LAST:event_jchooserPropertyChange
 
@@ -252,6 +265,8 @@ public class GestionarCitasVista extends javax.swing.JFrame {
 
     private void botonVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_botonVerActionPerformed
 
     private void botonVerTodas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerTodas1ActionPerformed
@@ -277,6 +292,10 @@ public class GestionarCitasVista extends javax.swing.JFrame {
     private void botonGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonGuardar1ActionPerformed
+
+    private void campoFechaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoFechaConsultaActionPerformed
 
     /**
      * @param args the command line arguments
