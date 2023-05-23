@@ -201,6 +201,9 @@ public class VerHorarioVista extends javax.swing.JFrame {
             "Database Error", JOptionPane.ERROR_MESSAGE );
         }finally{
         this.dispose();
+        AgendarCita ventana = new AgendarCita();
+        this.setVisible(false);
+        ventana.setVisible(true);
         }
     }//GEN-LAST:event_botonAgendarCitaActionPerformed
 

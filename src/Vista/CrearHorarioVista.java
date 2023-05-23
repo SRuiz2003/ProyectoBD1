@@ -5,6 +5,22 @@
  */
 package Vista;
 
+import ConexionBD.ConexionBD;
+import java.sql.Time;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,13 +29,144 @@ import javax.swing.ImageIcon;
  */
 public class CrearHorarioVista extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CrearHorario
-     */
+
     public CrearHorarioVista() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
+        
     }
+        
+
+
+private void guardarHorario() {
+    
+    int descanso = Integer.parseInt(diasLibres.getSelectedItem().toString());
+    
+    
+    LocalDate fechaInicio = LocalDate.now().plusDays(1);
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+    LocalTime horaInicioSeleccionada = LocalTime.parse(horaInicio.getSelectedItem().toString(), formatter);
+    LocalTime horaFinSeleccionada = LocalTime.parse(horaFin.getSelectedItem().toString(), formatter);
+    LocalDate ultimoDiaMes = fechaInicio.with(TemporalAdjusters.lastDayOfMonth());
+    
+    LocalDateTime inicio = fechaInicio.atTime(horaInicioSeleccionada);
+    LocalDateTime fin = fechaInicio.atTime(horaFinSeleccionada);
+
+    Duration duracion = Duration.between(inicio, fin);
+    long horas = duracion.toHours();
+
+    LocalDate fechaActual = inicio.toLocalDate(); // Inicializar con la fecha de inicio
+    LocalDate fechaDescanso = fechaInicio.plusDays(descanso);
+    List<LocalDateTime> horarios = new ArrayList<>(); // Crear el arreglo para almacenar los horarios
+     long diasDiferencia = ChronoUnit.DAYS.between(fechaInicio, ultimoDiaMes);
+     if (diasDiferencia > 21){
+         
+     while (fechaInicio.getMonthValue() == fechaActual.getMonthValue()) {
+    
+        if (horas < 8 && horas >= 1 && !fechaActual.equals(fechaDescanso) && !fechaActual.equals(fechaDescanso.plusDays(7)) && !fechaActual.equals(fechaDescanso.plusDays(14))) {
+            LocalDateTime actual = inicio;
+            while (actual.isBefore(fin)) {
+                horarios.add(actual);
+                actual = actual.plusHours(1);
+            }
+        } else {
+            // Si la diferencia es mayor o igual a 8 horas, realizar alguna acción adicional
+        }
+
+        // Avanzar al siguiente día
+        fechaActual = fechaActual.plusDays(1);
+        inicio = fechaActual.atTime(horaInicioSeleccionada);
+        fin = fechaActual.atTime(horaFinSeleccionada);
+    }
+         
+         
+     }else{
+     if(diasDiferencia > 14){
+              while (fechaInicio.getMonthValue() == fechaActual.getMonthValue()) {
+    
+        if (horas < 8 && horas >= 1 && !fechaActual.equals(fechaDescanso) && !fechaActual.equals(fechaDescanso.plusDays(7))) {
+            LocalDateTime actual = inicio;
+            while (actual.isBefore(fin)) {
+                horarios.add(actual);
+                actual = actual.plusHours(1);
+            }
+        } else {
+            // Si la diferencia es mayor o igual a 8 horas, realizar alguna acción adicional
+        }
+
+        // Avanzar al siguiente día
+        fechaActual = fechaActual.plusDays(1);
+        inicio = fechaActual.atTime(horaInicioSeleccionada);
+        fin = fechaActual.atTime(horaFinSeleccionada);
+    }
+         
+     }else{
+         if(diasDiferencia >= 7){
+            while (fechaInicio.getMonthValue() == fechaActual.getMonthValue()) {
+    
+        if (horas < 8 && horas >= 1 && !fechaActual.equals(fechaDescanso)) {
+            LocalDateTime actual = inicio;
+            while (actual.isBefore(fin)) {
+                horarios.add(actual);
+                actual = actual.plusHours(1);
+            }
+        } else {
+            // Si la diferencia es mayor o igual a 8 horas, realizar alguna acción adicional
+        }
+
+        // Avanzar al siguiente día
+        fechaActual = fechaActual.plusDays(1);
+        inicio = fechaActual.atTime(horaInicioSeleccionada);
+        fin = fechaActual.atTime(horaFinSeleccionada);
+    }
+             
+         }else{
+                         while (fechaInicio.getMonthValue() == fechaActual.getMonthValue()) {
+    
+        if (horas < 8 && horas >= 1) {
+            LocalDateTime actual = inicio;
+            while (actual.isBefore(fin)) {
+                horarios.add(actual);
+                actual = actual.plusHours(1);
+            }
+        } else {
+            // Si la diferencia es mayor o igual a 8 horas, realizar alguna acción adicional
+        }
+
+        // Avanzar al siguiente día
+        fechaActual = fechaActual.plusDays(1);
+        inicio = fechaActual.atTime(horaInicioSeleccionada);
+        fin = fechaActual.atTime(horaFinSeleccionada);
+    }
+         }
+             
+     }}
+
+
+    // Imprimir o utilizar el arreglo de horarios
+    for (LocalDateTime fechaHora : horarios) {
+        LocalDate fecha = fechaHora.toLocalDate();
+        LocalTime hora = fechaHora.toLocalTime();
+
+        System.out.println("Fecha: " + fecha);
+        System.out.println("Hora: " + hora);
+
+        // Aquí puedes guardar la fecha y hora en tu estructura de datos o realizar cualquier otra acción necesaria
+    }
+    ConexionBD.crearHorarioMeds(horarios);
+    System.out.println(horarios);
+}
+
+
+
+
+
+
+    
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,9 +184,7 @@ public class CrearHorarioVista extends javax.swing.JFrame {
         nombreMedico2 = new javax.swing.JLabel();
         horaFin = new ComponentesUI.Combobox();
         diasLibres = new ComponentesUI.Combobox();
-        nombreMedico3 = new javax.swing.JLabel();
         botonCrearHorario = new ComponentesUI.Button();
-        mes = new ComponentesUI.Combobox();
         nombreMedico4 = new javax.swing.JLabel();
         nombreMedico5 = new javax.swing.JLabel();
         botonRegresar = new ComponentesUI.Button();
@@ -69,11 +214,16 @@ public class CrearHorarioVista extends javax.swing.JFrame {
         nombreMedico2.setText("<html>Tenga en cuenta que sus proximos 2 dias libres en el mes se calculan 7 dias y 14 dias respectivamente a partir del primer dia que seleccione.</html>");
         bg.add(nombreMedico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 560, 40));
 
-        horaFin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1:00 a.m.", "2:00 a.m.", "3:00 a.m.", "4:00 a.m.", "5:00 a.m.", "6:00 a.m.", "7:00 a.m.", "8:00 a.m.", "9:00 a.m.", "10:00 a.m.", "11:00 a.m.", "1:00 p.m.", "2:00 p.m.", "3:00 p.m.", "4:00 p.m.", "5:00 p.m.", "6:00 p.m.", "7:00 p.m.", "9:00 p.m.", "10:00 p.m.", "11:00 p.m.", "12:00 a.m.", " ", " " }));
+        horaFin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "" }));
         horaFin.setToolTipText("");
         horaFin.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         horaFin.setLabeText("");
         horaFin.setLineColor(new java.awt.Color(0, 153, 153));
+        horaFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horaFinActionPerformed(evt);
+            }
+        });
         bg.add(horaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 100, 40));
 
         diasLibres.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7" }));
@@ -82,10 +232,6 @@ public class CrearHorarioVista extends javax.swing.JFrame {
         diasLibres.setLabeText("");
         diasLibres.setLineColor(new java.awt.Color(0, 153, 153));
         bg.add(diasLibres, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 100, 40));
-
-        nombreMedico3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        nombreMedico3.setText("Mes:");
-        bg.add(nombreMedico3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 100, -1));
 
         botonCrearHorario.setBackground(new java.awt.Color(78, 158, 185));
         botonCrearHorario.setForeground(new java.awt.Color(244, 240, 238));
@@ -97,13 +243,6 @@ public class CrearHorarioVista extends javax.swing.JFrame {
             }
         });
         bg.add(botonCrearHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 210, 48));
-
-        mes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", " " }));
-        mes.setToolTipText("");
-        mes.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        mes.setLabeText("");
-        mes.setLineColor(new java.awt.Color(0, 153, 153));
-        bg.add(mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 130, 40));
 
         nombreMedico4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         nombreMedico4.setText("Primer dia libre:");
@@ -127,7 +266,7 @@ public class CrearHorarioVista extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
         bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 220, -1));
 
-        horaInicio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1:00 a.m.", "2:00 a.m.", "3:00 a.m.", "4:00 a.m.", "5:00 a.m.", "6:00 a.m.", "7:00 a.m.", "8:00 a.m.", "9:00 a.m.", "10:00 a.m.", "11:00 a.m.", "1:00 p.m.", "2:00 p.m.", "3:00 p.m.", "4:00 p.m.", "5:00 p.m.", "6:00 p.m.", "7:00 p.m.", "9:00 p.m.", "10:00 p.m.", "11:00 p.m.", "12:00 a.m.", " ", " " }));
+        horaInicio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00", "" }));
         horaInicio.setToolTipText("");
         horaInicio.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         horaInicio.setLabeText("");
@@ -150,8 +289,10 @@ public class CrearHorarioVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCrearHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearHorarioActionPerformed
-        // TODO add your handling code here:
-       
+    guardarHorario(); 
+    MenuMedicos ventana = new MenuMedicos();
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botonCrearHorarioActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
@@ -160,6 +301,10 @@ public class CrearHorarioVista extends javax.swing.JFrame {
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private void horaFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_horaFinActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,11 +351,9 @@ public class CrearHorarioVista extends javax.swing.JFrame {
     private ComponentesUI.Combobox horaInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabeltitle;
-    private ComponentesUI.Combobox mes;
     private javax.swing.JLabel nombreMedico;
     private javax.swing.JLabel nombreMedico1;
     private javax.swing.JLabel nombreMedico2;
-    private javax.swing.JLabel nombreMedico3;
     private javax.swing.JLabel nombreMedico4;
     private javax.swing.JLabel nombreMedico5;
     // End of variables declaration//GEN-END:variables

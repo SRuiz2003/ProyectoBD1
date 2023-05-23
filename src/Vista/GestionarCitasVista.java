@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import static ConexionBD.ConexionBD.aceptarCita;
+import static ConexionBD.ConexionBD.eliminarCita;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -277,41 +279,57 @@ public class GestionarCitasVista extends javax.swing.JFrame {
     private void botonAceptarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarCitaActionPerformed
         // TODO add your handling code here:
         int r = jTable1.getSelectedRow();
-        int c = jTable1.getSelectedColumn();
-        if (r != -1 && c != -1) {
+        if (r != -1) {
     // Get the value of the selected cell
-        Object selectedValue = jTable1.getValueAt(r, c);
-    
+        Long selectedValue = Long.valueOf(jTable1.getValueAt(r, 0).toString());
     // Process the selected value as needed
+        aceptarCita(selectedValue);
         System.out.println("Selected value: " + selectedValue);
         } else {
     // No cell is selected
         JOptionPane.showMessageDialog(null, "No hay ninguna celda seleccionada",
                     "Database Error", JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_botonAceptarCitaActionPerformed
 
     private void botonEliminarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarCitaActionPerformed
         // TODO add your handling code here:
+        // TODO add your handling code here:
+        int r = jTable1.getSelectedRow();
+        if (r != -1) {
+    // Get the value of the selected cell
+        Long selectedValue = Long.valueOf(jTable1.getValueAt(r, 0).toString());
+    // Process the selected value as needed
+        eliminarCita(selectedValue);
+        } else {
+    // No cell is selected
+        JOptionPane.showMessageDialog(null, "No hay ninguna celda seleccionada",
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_botonEliminarCitaActionPerformed
 
     private void botonAgregarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarReporteActionPerformed
         // TODO add your handling code here:
         int r = jTable1.getSelectedRow();
-        int c = jTable1.getSelectedColumn();
-        if (r != -1 && c != -1) {
+        if (r != -1) {
     // Get the value of the selected cell
-        String selectedValue = jTable1.getValueAt(r, c).toString();
-        
-        AgregarDatosCita ventana = new AgregarDatosCita(selectedValue);
-        ventana.setVisible(true);
-        this.dispose();
+        String selectedValue = jTable1.getValueAt(r, 0).toString();
+        if( jTable1.getValueAt(r, 4).toString().equals("COMPLETADA")){
+           AgregarDatosCita ventana = new AgregarDatosCita(selectedValue);
+            ventana.setVisible(true);
+            this.dispose();
+        }else{
+        JOptionPane.showMessageDialog(this, "No se puede agregar reportes a citas sin completar",
+                    "Error", JOptionPane.ERROR_MESSAGE);     
+        }
     // Process the selected value as needed
         System.out.println("Selected value: " + selectedValue);
         } else {
     // No cell is selected
         JOptionPane.showMessageDialog(this, "Por favor selecione un campo en la tabla",
-                    "Database Error", JOptionPane.ERROR_MESSAGE);        
+                    "Error", JOptionPane.ERROR_MESSAGE);        
         }
         
         

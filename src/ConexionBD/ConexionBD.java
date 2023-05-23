@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 
 
@@ -116,7 +118,7 @@ public class ConexionBD {
             connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
             statement = connection.createStatement();
             // Preparar la consulta SQL para insertar la cita en la base de datos
-            String sql1 =String.format("INSERT INTO citas (codigo, fecha, hora,cedula_paciente  ) VALUES (%d, '%s', '%s', %d)",codigo,fechaCita,horaCita, cedulaUsuario);
+            String sql1 =String.format("INSERT INTO citas (codigo, fecha, hora,cedula_paciente,estado ) VALUES (%d, '%s', '%s', %d,'PENDIENTE')",codigo,fechaCita,horaCita, cedulaUsuario);
             String sql2 = String.format("UPDATE horarios SET codigo_cita = %d WHERE fecha = '%s' AND hora = '%s' AND cedula_medico = %d ", codigo, fechaCita,horaCita,cedulaDoctor);
             
             // Ejecutar la consulta
@@ -599,8 +601,12 @@ public class ConexionBD {
         statement = connection.createStatement();
         // Preparar la consulta SQL para cancelar la cita en la base de datos
         String sql1 = String.format("DELETE FROM citas WHERE codigo = %d", codigoCita);
+        String sql2 = String.format("DELETE FROM reportes WHERE codigo_cita = %d ",codigoCita);
+        String sql3 = String.format("UPDATE horarios SET codigo_cita = NULL WHERE codigo_cita = %d ",codigoCita);
         
         // Ejecutar la consulta
+        statement.executeUpdate(sql3);
+        statement.executeUpdate(sql2);
         statement.executeUpdate(sql1);
         
         // Mostrar un mensaje de éxito al usuario
@@ -825,6 +831,52 @@ public class ConexionBD {
         }
     }
             
+    }
+    
+    public static void crearHorarioMeds(List<LocalDateTime> elHorario){
+    
+     try{
+            // Crear el insert y establecer conexion
+            String sqlF = "INSERT INTO horarios (cedula_medico,fecha,hora) VALUES";  
+            SimpleDateFormat timeAtter = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            for( LocalDateTime b : elHorario){
+                String fecha = dateFormat.format(Date.valueOf(b.toLocalDate()));
+                String hora = timeAtter.format(Time.valueOf(b.toLocalTime()));
+                sqlF += String.format(" (%d,'%s','%s'),",cedulaUsuario,fecha,hora);
+            }
+            String sql = sqlF.substring(0,sqlF.length()-1) + ";";
+            connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
+            statement = connection.createStatement();
+            // Ejecutar el Insert   
+            statement.executeUpdate(sql);     
+            JOptionPane.showMessageDialog( null, "Horario creado con exito",
+            "Database Message", JOptionPane.INFORMATION_MESSAGE );
+        }
+        catch( SQLException sqlException ){
+            System.out.println(sqlException);
+            JOptionPane.showMessageDialog( null, sqlException.getMessage(),
+            "Database Error", JOptionPane.ERROR_MESSAGE );
+             
+        }
+        finally {
+
+         try {
+            statement.close();
+            connection.close();
+            }
+
+         // Maneja las excepciones que puedan ocurrir en el cierre
+         catch ( SQLException sqlException ) {
+            System.out.println(sqlException);
+            JOptionPane.showMessageDialog( null,
+               sqlException.getMessage(), "Database Error",
+               JOptionPane.ERROR_MESSAGE );
+
+            System.exit( 1 );
+                                            }
+                }
+    
     }
     
 }
