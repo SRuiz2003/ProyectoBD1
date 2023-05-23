@@ -62,7 +62,7 @@ public class AgregarDatosCita extends javax.swing.JFrame {
         tipoCitaCombo = new ComponentesUI.Combobox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Modificar cita");
+        setTitle("Agregar reporte a cita");
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

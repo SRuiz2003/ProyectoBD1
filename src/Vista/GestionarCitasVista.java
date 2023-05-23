@@ -50,7 +50,6 @@ public class GestionarCitasVista extends javax.swing.JFrame {
         botonAceptarCita = new ComponentesUI.Button();
         botonEliminarCita = new ComponentesUI.Button();
         botonAgregarReporte = new ComponentesUI.Button();
-        botonGuardar1 = new ComponentesUI.Button();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -116,7 +115,7 @@ public class GestionarCitasVista extends javax.swing.JFrame {
                 botonGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 600, 260, 48));
+        jPanel1.add(botonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 590, 200, 48));
 
         botonVerTodas1.setBackground(new java.awt.Color(78, 158, 185));
         botonVerTodas1.setForeground(new java.awt.Color(244, 240, 238));
@@ -138,7 +137,7 @@ public class GestionarCitasVista extends javax.swing.JFrame {
                 botonAceptarCitaActionPerformed(evt);
             }
         });
-        jPanel1.add(botonAceptarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 160, 48));
+        jPanel1.add(botonAceptarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, 250, 48));
 
         botonEliminarCita.setBackground(new java.awt.Color(78, 158, 185));
         botonEliminarCita.setForeground(new java.awt.Color(244, 240, 238));
@@ -149,7 +148,7 @@ public class GestionarCitasVista extends javax.swing.JFrame {
                 botonEliminarCitaActionPerformed(evt);
             }
         });
-        jPanel1.add(botonEliminarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 500, 160, 48));
+        jPanel1.add(botonEliminarCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 500, 250, 48));
 
         botonAgregarReporte.setBackground(new java.awt.Color(78, 158, 185));
         botonAgregarReporte.setForeground(new java.awt.Color(244, 240, 238));
@@ -160,18 +159,7 @@ public class GestionarCitasVista extends javax.swing.JFrame {
                 botonAgregarReporteActionPerformed(evt);
             }
         });
-        jPanel1.add(botonAgregarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 500, 160, 48));
-
-        botonGuardar1.setBackground(new java.awt.Color(78, 158, 185));
-        botonGuardar1.setForeground(new java.awt.Color(244, 240, 238));
-        botonGuardar1.setText("Guardar");
-        botonGuardar1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        botonGuardar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGuardar1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(botonGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 500, 160, 48));
+        jPanel1.add(botonAgregarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 250, 48));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lineasFondo.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 280, -1, -1));
@@ -331,10 +319,6 @@ public class GestionarCitasVista extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonAgregarReporteActionPerformed
 
-    private void botonGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonGuardar1ActionPerformed
-
     private void campoFechaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaConsultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoFechaConsultaActionPerformed
@@ -386,7 +370,6 @@ public class GestionarCitasVista extends javax.swing.JFrame {
     private ComponentesUI.Button botonAgregarReporte;
     private ComponentesUI.Button botonEliminarCita;
     private ComponentesUI.Button botonGuardar;
-    private ComponentesUI.Button botonGuardar1;
     private ComponentesUI.Button botonVerTodas1;
     private ComponentesUI.TextField campoFechaConsulta;
     private javax.swing.JLabel jLabel1;
